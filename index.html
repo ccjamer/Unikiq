@@ -15,8 +15,6 @@
       --accent-blue-hover: #1d4ed8;
       --text-dark: #0f172a;
       --text-light: #ffffff;
-      --text-muted-light: #64748b;
-      --text-muted-dark: #94a3b8;
       --border-light: rgba(15, 23, 42, 0.08);
       --border-dark: rgba(255, 255, 255, 0.12);
       --card-bg-dark: #13223f;
@@ -25,11 +23,6 @@
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
     
-    /* 
-      ORGANISK SWIRL BAGGRUND:
-      Starter kridthvid i toppen (#ffffff), swirler blødt ned gennem pastelblå toner,
-      og ender i den dybe mørkeblå (#0b1932) i bunden.
-    */
     body {
       font-family: 'Inter', sans-serif;
       color: var(--text-dark);
@@ -43,9 +36,9 @@
       overflow-x: hidden;
     }
 
-    /* Navigation - Gennemsigtig i toppen */
+    /* Navigation */
     header { 
-      background: rgba(255, 255, 255, 0.75); 
+      background: rgba(255, 255, 255, 0.85); 
       backdrop-filter: blur(12px); 
       position: sticky; 
       top: 0; 
@@ -54,7 +47,6 @@
     }
     .nav-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 12px 20px; }
     
-    /* Logo smelter 100% sammen med den hvide top */
     .logo-link { display: flex; align-items: center; text-decoration: none; }
     .logo-img { height: 50px; width: auto; display: block; transition: transform 0.2s ease; }
     .logo-img:hover { transform: scale(1.03); }
@@ -73,7 +65,7 @@
     .btn-secondary:hover { border-color: #94a3b8; transform: translateY(-3px); background: #ffffff; }
 
     /* Hero Section */
-    .hero { padding: 90px 20px 80px; text-align: center; max-width: 950px; margin: 0 auto; position: relative; z-index: 2; }
+    .hero { padding: 90px 20px 60px; text-align: center; max-width: 950px; margin: 0 auto; position: relative; z-index: 2; }
     
     .hero h1 { 
       font-family: 'Caladea', serif; 
@@ -97,11 +89,12 @@
     }
 
     .hero p { font-size: 1.25rem; color: #334155; font-weight: 500; margin-bottom: 35px; max-width: 800px; margin-left: auto; margin-right: auto; }
-    .hero-buttons { display: flex; justify-content: center; gap: 18px; flex-wrap: wrap; margin-bottom: 45px; }
+    .hero-buttons { display: flex; justify-content: center; gap: 18px; flex-wrap: wrap; margin-bottom: 35px; }
     
-    .hero-features { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; color: #1e293b; font-size: 0.95rem; font-weight: 600; }
-    .hero-features span { display: flex; align-items: center; gap: 8px; background: rgba(255, 255, 255, 0.8); padding: 8px 18px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.6); box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
-    .hero-features i { color: var(--accent-blue); }
+    /* Mindre, elegante bobler i hero */
+    .hero-features { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; color: #334155; font-size: 0.85rem; font-weight: 600; }
+    .hero-features span { display: flex; align-items: center; gap: 6px; background: rgba(255, 255, 255, 0.85); padding: 6px 14px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.7); box-shadow: 0 2px 8px rgba(0,0,0,0.03); backdrop-filter: blur(4px); }
+    .hero-features i { color: var(--accent-blue); font-size: 0.8rem; }
 
     /* Grid Sections */
     .section { max-width: 1200px; margin: 90px auto; padding: 0 20px; }
@@ -112,7 +105,7 @@
     .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; }
     .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
 
-    /* Cards - Lyse i toppen, Mørke i bunden */
+    /* Cards */
     .card { 
       background: rgba(255, 255, 255, 0.9); 
       border: 1px solid var(--border-light); 
@@ -160,7 +153,7 @@
 
     /* Modal Pop-Up */
     .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(8px); z-index: 2000; justify-content: center; align-items: center; padding: 20px; }
-    .modal-content { background: #ffffff; border-radius: 24px; max-width: 650px; width: 100%; padding: 40px; position: relative; box-shadow: 0 20px 40px rgba(0,0,0,0.2); color: #0f172a; }
+    .modal-content { background: #ffffff; border-radius: 24px; max-width: 700px; width: 100%; max-height: 85vh; overflow-y: auto; padding: 40px; position: relative; box-shadow: 0 20px 40px rgba(0,0,0,0.2); color: #0f172a; }
     .close-btn { position: absolute; top: 20px; right: 25px; background: none; border: none; color: #64748b; font-size: 1.8rem; cursor: pointer; }
     .modal-header h3 { font-family: 'Caladea', serif; font-size: 2.2rem; margin: 10px 0; color: #0f172a; }
     
@@ -168,9 +161,15 @@
     .roi-box h4 { font-size: 1rem; color: #15803d; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
     .roi-box p { font-size: 0.95rem; color: #166534; }
 
+    .legal-body { font-size: 0.92rem; color: #334155; line-height: 1.7; }
+    .legal-body h4 { font-size: 1.1rem; color: #0f172a; margin: 20px 0 8px; font-weight: 700; }
+    .legal-body table { width: 100%; border-collapse: collapse; margin: 15px 0; font-size: 0.85rem; }
+    .legal-body th, .legal-body td { border: 1px solid #cbd5e1; padding: 8px 12px; text-align: left; }
+    .legal-body th { background: #f1f5f9; font-weight: 600; }
+
     .modal-actions { display: flex; gap: 15px; margin-top: 30px; }
 
-    /* Onboarding Section - Mørk Boks i Bunden */
+    /* Onboarding Section */
     .unikiq-form-card { max-width: 650px; margin: 0 auto; padding: 40px; background: var(--card-bg-dark); border-radius: 24px; border: 1px solid var(--border-dark); box-shadow: 0 20px 40px rgba(0,0,0,0.3); color: #ffffff; }
     .unikiq-form { display: flex; flex-direction: column; gap: 20px; }
     .unikiq-field { display: flex; flex-direction: column; gap: 8px; flex: 1; }
@@ -199,11 +198,39 @@
     .step-content h4 { font-size: 1.3rem; margin-bottom: 8px; color: #0f172a; }
     .step-content p { color: #475569; }
 
-    /* Footer - Mørk bund */
+    /* Floating Chat Widget Callout Banner */
+    .widget-promo-callout {
+      position: fixed;
+      bottom: 95px;
+      right: 25px;
+      background: #0f172a;
+      color: #ffffff;
+      border: 1px solid rgba(255,255,255,0.2);
+      padding: 12px 18px;
+      border-radius: 16px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      animation: floatPulse 3s infinite ease-in-out;
+    }
+    .widget-promo-callout i { color: #38bdf8; font-size: 1.1rem; }
+    .widget-promo-callout .close-callout { cursor: pointer; opacity: 0.6; margin-left: 8px; }
+    .widget-promo-callout .close-callout:hover { opacity: 1; }
+
+    @keyframes floatPulse {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+
+    /* Footer */
     footer { background: #071022; border-top: 1px solid var(--border-dark); padding: 80px 20px 30px; margin-top: 100px; color: #ffffff; }
     .footer-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; margin-bottom: 60px; }
     .footer-col h4 { font-size: 1.1rem; margin-bottom: 20px; color: #ffffff; }
-    .footer-col a { color: #94a3b8; text-decoration: none; display: block; margin-bottom: 12px; font-size: 0.95rem; transition: color 0.2s; }
+    .footer-col a { color: #94a3b8; text-decoration: none; display: block; margin-bottom: 12px; font-size: 0.95rem; transition: color 0.2s; cursor: pointer; }
     .footer-col a:hover { color: var(--accent-blue); }
     .copyright { text-align: center; color: #94a3b8; font-size: 0.85rem; border-top: 1px solid var(--border-dark); padding-top: 30px; }
 
@@ -214,6 +241,7 @@
       .unikiq-field-row { flex-direction: column; }
       .category-select-wrapper { flex-direction: column; width: 100%; }
       .main-cat-btn { width: 100%; justify-content: center; }
+      .widget-promo-callout { display: none; }
     }
   </style>
 </head>
@@ -255,6 +283,7 @@
       <a href="#dma-catalog" class="btn btn-secondary">Udforsk DMA-Kataloget</a>
     </div>
 
+    <!-- Mindre, elegante bobler på samlet linje -->
     <div class="hero-features">
       <span><i class="fa-solid fa-star" style="color: #f59e0b;"></i> Ingen binding & transparent pris</span>
       <span><i class="fa-solid fa-shield-halved" style="color: #10b981;"></i> 100% data-ejerskab & GDPR</span>
@@ -269,7 +298,6 @@
       <p>Brug kataloget nedenfor som inspiration til, hvordan en digital medarbejder kan tilpasses din virksomhed. Vælg en enkelt funktion eller sammensæt et helt team til at løfte dine opgaver.</p>
     </div>
 
-    <!-- Hovedknapper til Kategori-valg -->
     <div class="category-select-wrapper">
       <button class="main-cat-btn" id="btn-single" onclick="selectCategory('single')">
         <i class="fa-solid fa-user-gear"></i> Enkelte DMA'er
@@ -279,7 +307,6 @@
       </button>
     </div>
 
-    <!-- Dynamisk Grid -->
     <div class="grid-3" id="dma-grid"></div>
   </section>
 
@@ -346,7 +373,7 @@
     </div>
   </section>
 
-  <!-- ONBOARDING FORMULAR SEKTION (Overgang til Mørk Bund) -->
+  <!-- ONBOARDING FORMULAR SEKTION -->
   <section class="section dark-section" id="onboarding">
     <div class="unikiq-form-card">
       <div class="section-title" style="margin-bottom: 25px;">
@@ -355,7 +382,6 @@
       </div>
 
       <form id="onboarding-form" onsubmit="handleFormSubmit(event)" class="unikiq-form">
-        
         <div class="unikiq-field">
           <label for="url">Din Hjemmeside URL *</label>
           <input type="text" id="url" name="url" placeholder="dinvirksomhed.dk" required onblur="ensureHttp(this)" />
@@ -385,7 +411,6 @@
           <span>Opret min Chat Widget</span>
           <i class="fa-solid fa-arrow-right"></i>
         </button>
-
       </form>
     </div>
   </section>
@@ -468,7 +493,14 @@
     </div>
   </section>
 
-  <!-- Footer -->
+  <!-- Opfordrings-banner ved Chat Widget -->
+  <div class="widget-promo-callout" id="widget-promo">
+    <i class="fa-solid fa-comments"></i>
+    <span>Prøv vores AI i hjørnet! Den kan oprette dig, booke møder & svare 24/7.</span>
+    <span class="close-callout" onclick="document.getElementById('widget-promo').style.display='none'">&times;</span>
+  </div>
+
+  <!-- Footer med Juridiske Links -->
   <footer>
     <div class="footer-grid">
       <div class="footer-col">
@@ -486,9 +518,9 @@
 
       <div class="footer-col">
         <h4>Sikkerhed & Jura</h4>
-        <a href="#">Vilkår og betingelser</a>
-        <a href="#">GDPR & Databeskyttelse</a>
-        <a href="#">Privatlivspolitik</a>
+        <a onclick="openLegalModal('terms')">Vilkår og betingelser</a>
+        <a onclick="openLegalModal('gdpr')">GDPR & Databeskyttelse</a>
+        <a onclick="openLegalModal('privacy')">Privatlivspolitik</a>
       </div>
     </div>
 
@@ -497,7 +529,7 @@
     </div>
   </footer>
 
-  <!-- DYNAMISK POP-UP MODAL -->
+  <!-- DYNAMISK POP-UP MODAL (DMA Katalog) -->
   <div id="dma-modal" class="modal-overlay" onclick="closeModalOnOuterClick(event)">
     <div class="modal-content">
       <button class="close-btn" onclick="closeModal()">&times;</button>
@@ -511,7 +543,6 @@
         <h4 style="margin-bottom:8px; font-size:1.1rem; color:#0f172a;">Om denne medarbejder:</h4>
         <p id="modal-description" style="color:#475569; font-size:0.95rem;">Beskrivelse...</p>
 
-        <!-- ROI & Værdiboks -->
         <div class="roi-box">
           <h4><i class="fa-solid fa-chart-line"></i> Forretningsværdi & Gevinst (ROI):</h4>
           <p id="modal-roi">Gevinsttekst...</p>
@@ -521,6 +552,25 @@
           <button class="btn btn-primary" onclick="selectDmaForOrder()">Få mere information / Bestil</button>
           <button class="btn btn-secondary" onclick="closeModal()">Luk vindue</button>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DYNAMISK JURIDISK MODAL (Vilkår, GDPR & Privatlivspolitik) -->
+  <div id="legal-modal" class="modal-overlay" onclick="closeLegalModalOnOuterClick(event)">
+    <div class="modal-content">
+      <button class="close-btn" onclick="closeLegalModal()">&times;</button>
+      
+      <div class="modal-header">
+        <h3 id="legal-modal-title">Vilkår & Betingelser</h3>
+      </div>
+
+      <div class="modal-body legal-body" id="legal-modal-content">
+        <!-- Indhold indsættes dynamisk via JS -->
+      </div>
+
+      <div class="modal-actions" style="justify-content: flex-end;">
+        <button class="btn btn-secondary" onclick="closeLegalModal()">Luk vindue</button>
       </div>
     </div>
   </div>
@@ -577,8 +627,6 @@
         desc: "Trækker automatisk data fra modtagne bilag, kontrakter og fakturaer, og gemmer dem fejlfrit i dit ERP, Google Drive eller NocoDB.",
         roi: "Fjerner 100% af manuelt indtastningsarbejde og minimerer risikoen for dyre tastefejl i regnskabet."
       },
-
-      // Teams
       {
         id: "salgsmaskine",
         type: "team",
@@ -599,7 +647,6 @@
 
     let selectedDma = null;
 
-    // 2. SKIFT KATEGORI OG VIS KORT
     function selectCategory(type) {
       const btnSingle = document.getElementById('btn-single');
       const btnTeam = document.getElementById('btn-team');
@@ -639,7 +686,6 @@
       });
     }
 
-    // 3. MODAL FUNKTIONER
     function openModal(id) {
       selectedDma = dmaCatalog.find(item => item.id === id);
       if (!selectedDma) return;
@@ -672,7 +718,95 @@
       }
     }
 
-    // 4. ONBOARDING SUBMIT
+    // 2. JURIDISK MODAL LOGIK
+    const legalTexts = {
+      terms: `
+        <h4>1.1 Aftalegrundlag & Ydelser</h4>
+        <p>Nærværende vilkår gælder for alle aftaler indgået med UnikIQ (CVR: 46184270) vedrørende udvikling, implementering og drift af Digitale Medarbejdere (DMA) samt tilhørende automatiseringer.</p>
+        
+        <h4>1.2 Betaling & Opsigelse</h4>
+        <p><b>Opsætning:</b> Engangsgebyrer for opsætning og konfiguration faktureres ved aftaleindgåelse og forfalder før opstart.<br>
+        <b>Abonnement:</b> Månedlig drift faktureres forud d. 1. i hver måned med betalingsfrist på Netto 8 dage.<br>
+        <b>Opsigelse:</b> Aftalen kan opsiges af begge parter med et varsel på løbende måned + 30 dage.</p>
+
+        <h4>1.3 Ansvarsbegrænsning & AI-forbehold</h4>
+        <p>Vores Digitale Medarbejdere er baseret på avanceret sprogmodel-teknologi (LLM). UnikIQ kan ikke holdes ansvarlig for utilsigtede fejl, fejlfortolkninger eller hallucinationer genereret af den digitale medarbejder. Kunden er forpligtet til løbende at stikprøvekontrollere svar og workflows.</p>
+        
+        <h4>1.4 Tredjepartstjenester & Oppetid</h4>
+        <p>UnikIQ tilstræber høj oppetid, men garanterer ikke uafbrudt drift. UnikIQ tager forbehold for nedbrud eller forsinkelser forårsaget af tredjepartsleverandører (OpenAI, Hetzner, Vapi, Twilio m.fl.).</p>
+      `,
+      privacy: `
+        <h4>2.1 Dataansvarlig</h4>
+        <p>UnikIQ er dataansvarlig for behandlingen af de personoplysninger, vi modtager om dig på vores hjemmeside (CVR: 46184270, Kontakt: unikiq@unikiq.dk).</p>
+
+        <h4>2.2 Brug af Digital Medarbejder</h4>
+        <p>Vi anvender digitale medarbejdere til at besvare forespørgsler, yde support og kvalificere leads. Samtaler logges for at sikre korrekt rådgivning og til løbende optimering. Data opbevares fortroligt og anvendes ikke til træning af eksterne, offentlige AI-modeller.</p>
+
+        <h4>2.3 Hvilke data indsamler vi?</h4>
+        <p><b>Almindelige oplysninger:</b> Navn, e-mail, telefonnummer, CVR og firmanavn oplyst ved kontakt.<br>
+        <b>Brugsdata:</b> IP-adresse og adfærd på hjemmesiden.<br>
+        <b>Klientdata:</b> Ved implementering af DMA'er behandler vi kun data nødvendige for løsningens funktion og altid underlagt en indgået Databehandleraftale (DPA).</p>
+
+        <h4>2.4 Dine rettigheder</h4>
+        <p>Du har til enhver tid ret til indsigt, berigtigelse, indsigelse samt anmodning om sletning ("retten til at blive glemt") ved skriftlig henvendelse til unikiq@unikiq.dk.</p>
+      `,
+      gdpr: `
+        <h4>3.1 Overholdelse af Databeskyttelsesforordningen</h4>
+        <p>UnikIQ overholder gældende EU-databeskyttelseslovgivning (GDPR). Vi sikrer, at alle personoplysninger behandles lovligt, rimeligt og på en gennemsigtig måde.</p>
+
+        <h4>3.2 Lukkede Kredsløb & Enterprise API (Zero Data Retention)</h4>
+        <p>Alle vores Digitale Medarbejdere kommunikerer via lukkede Enterprise API-forbindelser. Det garanteres, at hverken kundedata, forretningshemmeligheder eller samtalelogs anvendes af vore underleverandører (herunder OpenAI) til at træne offentlige AI-modeller. Data opbevares i isolerede miljøer.</p>
+
+        <h4>3.3 Dataplacering & EU-Hosting</h4>
+        <p>Vores primære infrastruktur afvikles på egne, dedikerede og sikrede servere i Frankfurt, Tyskland (Hetzner Online GmbH).</p>
+
+        <h4>3.4 Tekniske og Organisatoriske Sikkerhedsforanstaltninger</h4>
+        <p>Al datatrafik er krypteret med stærk SSL/TLS-kryptering (256-bit). Følsomme systemnøgler opbevares stærkt krypteret, og al adgang kræver to-faktor-godkendelse (2FA).</p>
+
+        <h4>Godkendte Underdatabehandlere (Bilag 1):</h4>
+        <table>
+          <thead>
+            <tr><th>Leverandør</th><th>Formål</th><th>Dataplacering</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>OpenAI Ireland Ltd.</td><td>AI-intelligens (LLM via API / Zero Retention)</td><td>EU / USA (DPA sikret)</td></tr>
+            <tr><td>Hetzner Online GmbH</td><td>Serverhosting af egen infrastruktur</td><td>EU (Tyskland)</td></tr>
+            <tr><td>Make.com / Celonis</td><td>Workflow-automatisering</td><td>EU (Tyskland)</td></tr>
+            <tr><td>Google Cloud / Workspace</td><td>Sikker fillagring og dokumentation</td><td>EU / USA (DPA sikret)</td></tr>
+            <tr><td>Vapi / Twilio Inc.</td><td>AI-telefoni og opkaldshåndtering</td><td>USA (DPA sikret)</td></tr>
+          </tbody>
+        </table>
+      `
+    };
+
+    function openLegalModal(type) {
+      const modal = document.getElementById('legal-modal');
+      const title = document.getElementById('legal-modal-title');
+      const content = document.getElementById('legal-modal-content');
+
+      if (type === 'terms') {
+        title.innerText = 'Vilkår & Betingelser';
+        content.innerHTML = legalTexts.terms;
+      } else if (type === 'privacy') {
+        title.innerText = 'Privatlivspolitik';
+        content.innerHTML = legalTexts.privacy;
+      } else if (type === 'gdpr') {
+        title.innerText = 'GDPR & Datasikkerhedsgaranti';
+        content.innerHTML = legalTexts.gdpr;
+      }
+
+      modal.style.display = 'flex';
+    }
+
+    function closeLegalModal() {
+      document.getElementById('legal-modal').style.display = 'none';
+    }
+
+    function closeLegalModalOnOuterClick(e) {
+      if (e.target.id === 'legal-modal') closeLegalModal();
+    }
+
+    // 3. ONBOARDING SUBMIT
     function ensureHttp(input) {
       let val = input.value.trim();
       if (val && !/^https?:\/\//i.test(val)) {
