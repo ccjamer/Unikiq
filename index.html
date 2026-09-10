@@ -10,7 +10,6 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <style>
-    /* CSS Variabler til Dark / Light Modes */
     :root[data-theme="dark"] {
       --bg-main: #0b1932;
       --card-bg: #13223f;
@@ -46,7 +45,6 @@
     header { background: var(--nav-bg); backdrop-filter: blur(12px); position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid var(--border-color); }
     .nav-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; }
     
-    /* Fremtrædende Logo uden hvid boks */
     .logo-link { display: flex; align-items: center; text-decoration: none; }
     .logo-img { height: 48px; width: auto; display: block; filter: mix-blend-mode(var(--logo-filter)); transition: transform 0.2s ease; }
     .logo-img:hover { transform: scale(1.03); }
@@ -136,11 +134,48 @@
     .card-list li { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 12px; display: flex; align-items: center; gap: 10px; }
     .card-list i { color: var(--accent-blue); font-size: 0.8rem; }
 
-    /* DMA Catalog & Tabs */
-    .filter-tabs { display: flex; justify-content: center; gap: 12px; margin-bottom: 40px; flex-wrap: wrap; }
-    .tab-btn { background: var(--card-bg); color: var(--text-muted); border: 1px solid var(--border-color); padding: 10px 22px; border-radius: 30px; cursor: pointer; font-weight: 500; transition: all 0.2s; }
-    .tab-btn.active, .tab-btn:hover { background: var(--accent-blue); color: #ffffff; border-color: var(--accent-blue); }
+    /* Store Prominente Hovedknapper til Katalog */
+    .category-select-wrapper {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+    }
 
+    .main-cat-btn {
+      background: var(--card-bg);
+      color: var(--text-main);
+      border: 2px solid var(--border-color);
+      padding: 16px 36px;
+      border-radius: 50px;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    }
+
+    .main-cat-btn i { font-size: 1.2rem; color: var(--accent-blue); }
+
+    .main-cat-btn:hover {
+      border-color: var(--accent-blue);
+      transform: translateY(-3px);
+    }
+
+    .main-cat-btn.active {
+      background: var(--accent-blue);
+      color: #ffffff;
+      border-color: var(--accent-blue);
+      box-shadow: 0 8px 25px rgba(37, 99, 235, 0.4);
+    }
+
+    .main-cat-btn.active i { color: #ffffff; }
+
+    /* Card styling */
     .dma-card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 20px; padding: 30px; cursor: pointer; transition: all 0.3s; display: flex; flex-direction: column; justify-content: space-between; }
     .dma-card:hover { transform: translateY(-5px); border-color: var(--accent-blue); box-shadow: 0 15px 35px rgba(0,0,0,0.08); }
     .badge { display: inline-block; background: rgba(59, 130, 246, 0.12); color: var(--accent-blue); padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; margin-bottom: 15px; align-self: flex-start; }
@@ -150,15 +185,17 @@
     .price-text { font-weight: 700; color: var(--text-main); }
     .read-more { color: var(--accent-blue); font-weight: 600; }
 
-    /* Modal Pop-Up */
+    /* Modal Pop-Up uden TBT, men med fokus på Værdi/ROI */
     .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(8px); z-index: 2000; justify-content: center; align-items: center; padding: 20px; }
     .modal-content { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 24px; max-width: 650px; width: 100%; padding: 40px; position: relative; box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
     .close-btn { position: absolute; top: 20px; right: 25px; background: none; border: none; color: var(--text-muted); font-size: 1.8rem; cursor: pointer; }
     .modal-header h3 { font-family: 'Caladea', serif; font-size: 2.2rem; margin: 10px 0; }
     .modal-price-tag { color: var(--accent-blue); font-size: 1.2rem; font-weight: 700; margin-bottom: 20px; }
-    .tbt-box { background: var(--card-inner); border-left: 4px solid var(--accent-blue); padding: 15px; border-radius: 8px; margin: 20px 0; }
-    .tbt-box h4 { font-size: 0.95rem; color: var(--accent-blue); margin-bottom: 5px; }
-    .tbt-box p { font-size: 0.9rem; color: var(--text-main); font-family: monospace; }
+    
+    .roi-box { background: var(--card-inner); border-left: 4px solid #10b981; padding: 18px; border-radius: 12px; margin: 20px 0; }
+    .roi-box h4 { font-size: 1rem; color: #10b981; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+    .roi-box p { font-size: 0.95rem; color: var(--text-main); }
+
     .modal-actions { display: flex; gap: 15px; margin-top: 30px; }
 
     /* Onboarding Section */
@@ -203,6 +240,8 @@
       .nav-links { display: none; }
       .grid-2, .grid-3 { grid-template-columns: 1fr; }
       .unikiq-field-row { flex-direction: column; }
+      .category-select-wrapper { flex-direction: column; width: 100%; }
+      .main-cat-btn { width: 100%; justify-content: center; }
     }
   </style>
 </head>
@@ -234,7 +273,7 @@
     </div>
   </header>
 
-  <!-- Hero Section med Robot/Sky baggrund og AI Logo -->
+  <!-- Hero Section -->
   <div class="hero-wrapper">
     <div class="hero-overlay"></div>
     <section class="hero">
@@ -259,21 +298,24 @@
     </section>
   </div>
 
-  <!-- DMA KATALOG SEKTION -->
+  <!-- DMA KATALOG SEKTION (Uden kort før der klikkes) -->
   <section class="section" id="dma-catalog">
     <div class="section-title">
       <h2>Vores Digitale Medarbejdere (DMA)</h2>
-      <p>Vælg en enkelt specialist eller et samlet afdelingsteam skræddersyet til jeres behov.</p>
+      <p>Vælg en kategori nedenfor for at udforske løsningerne.</p>
     </div>
 
-    <!-- Kategori Filter -->
-    <div class="filter-tabs">
-      <button class="tab-btn active" onclick="renderCatalog('all', this)">Alle</button>
-      <button class="tab-btn" onclick="renderCatalog('single', this)">Enkelte DMA'er</button>
-      <button class="tab-btn" onclick="renderCatalog('team', this)">DMA Teams</button>
+    <!-- Hovedknapper til Kategori-valg -->
+    <div class="category-select-wrapper">
+      <button class="main-cat-btn" id="btn-single" onclick="selectCategory('single')">
+        <i class="fa-solid fa-user-gear"></i> Enkelte DMA'er
+      </button>
+      <button class="main-cat-btn" id="btn-team" onclick="selectCategory('team')">
+        <i class="fa-solid fa-users-gear"></i> DMA Teams
+      </button>
     </div>
 
-    <!-- Dynamisk Grid -->
+    <!-- Dynamisk Grid (Starter tomt) -->
     <div class="grid-3" id="dma-grid"></div>
   </section>
 
@@ -468,7 +510,7 @@
     </div>
   </footer>
 
-  <!-- DYNAMISK POP-UP MODAL -->
+  <!-- DYNAMISK POP-UP MODAL (Fokuseret på ROI/Værdi) -->
   <div id="dma-modal" class="modal-overlay" onclick="closeModalOnOuterClick(event)">
     <div class="modal-content">
       <button class="close-btn" onclick="closeModal()">&times;</button>
@@ -480,12 +522,13 @@
       </div>
 
       <div class="modal-body">
-        <h4 style="margin-bottom:8px; font-size:1.1rem;">Beskrivelse:</h4>
+        <h4 style="margin-bottom:8px; font-size:1.1rem;">Om denne medarbejder:</h4>
         <p id="modal-description" style="color:var(--text-muted); font-size:0.95rem;">Beskrivelse...</p>
 
-        <div class="tbt-box">
-          <h4>Arbejdsgang (TBT-Workflow):</h4>
-          <p id="modal-tbt">Trigger ➔ Brain ➔ Tool</p>
+        <!-- ROI & Værdiboks -->
+        <div class="roi-box">
+          <h4><i class="fa-solid fa-chart-line"></i> Forretningsværdi & Gevinst (ROI):</h4>
+          <p id="modal-roi">Gevinsttekst...</p>
         </div>
 
         <div class="modal-actions">
@@ -498,7 +541,7 @@
 
   <!-- SCRIPT LOGIK -->
   <script>
-    // 1. Theme Toggle Logik (Light / Dark)
+    // 1. Theme Toggle Logik
     function toggleTheme() {
       const html = document.documentElement;
       const icon = document.getElementById('theme-icon');
@@ -515,19 +558,18 @@
       }
     }
 
-    // Gem seneste tema i browseren
     const savedTheme = localStorage.getItem('theme') || 'dark';
     document.documentElement.setAttribute('data-theme', savedTheme);
 
-    // 2. DMA KATALOG DATA
+    // 2. DMA KATALOG DATA MED FOKUS PÅ ROI OG VÆRDI
     const dmaCatalog = [
       {
         id: "posthus",
         type: "single",
         badge: "Mail & Modtagelse",
         title: "UniqIQ Posthus",
-        desc: "Monitorerer indbakke, sorterer mails, udarbejder udkast og arkiverer bilag automatisk 24/7.",
-        tbt: "TRIGGER: Ny E-mail ➔ BRAIN: Kategoriserer & skriversvar ➔ TOOL: Gemmer i Udkast/Arkiv",
+        desc: "Overvåger din indbakke 24/7, sorterer indkommende e-mails, udarbejder professionelle svardeklarationer og gemmer bilag direkte i dit arkiv.",
+        roi: "Sparer 10-15 timer om ugen på manuel e-mail sortering og sikrer, at ingen vigtige kundehenvendelser nogensinde falder igennem sprækkerne.",
         price: "Fra 499 kr./md. + opsætning"
       },
       {
@@ -535,8 +577,8 @@
         type: "single",
         badge: "Salg & Kalender",
         title: "Mødebooker DMA",
-        desc: "Kvalificerer indkommende leads via chat/mail, finder ledige tider i kalenderen og booker mødet.",
-        tbt: "TRIGGER: Formular/Chat ➔ BRAIN: Tjekker krav & kvalificerer ➔ TOOL: Sender Cal.com/Google link & opretter aftale",
+        desc: "Svarer potentielle kunder med det samme, kvalificerer deres behov og lægger en direkte mødeaftale i din kalender uden tidsspild.",
+        roi: "Øger din salgskonvertering med op til 30% ved at fange varme leads, mens de er mest købsklar – også uden for normal arbejdstid.",
         price: "Fra 499 kr./md. + opsætning"
       },
       {
@@ -544,8 +586,8 @@
         type: "single",
         badge: "Tekst & SEO",
         title: "Skribent DMA",
-        desc: "Forfatter dybdegående artikler, blogindlæg, nyhedsbreve og B2B-copywriting direkte til din platform.",
-        tbt: "TRIGGER: Emne-ønske/Uge-trigger ➔ BRAIN: Genererer SEO-optimeret tekst ➔ TOOL: Gemmer til godkendelse eller publicerer",
+        desc: "Skriver fængslende B2B-artikler, blogindlæg, nyhedsbreve og SEO-tekster skræddersyet til din virksomheds tone of voice.",
+        roi: "Sikrer løbende synlighed på Google og sociale medier uden at du skal hyre et dyrt tekstbureau eller bruge aftener på at skrive indhold.",
         price: "Fra 499 kr./md. + opsætning"
       },
       {
@@ -553,8 +595,8 @@
         type: "single",
         badge: "Økonomi & Inkasso",
         title: "Rykker & Inkasso DMA",
-        desc: "Holder øje med ubetalte fakturaer i bogføringen og udsender venlige rykker-mails med rette tone og frist.",
-        tbt: "TRIGGER: Dagligt tjek i bogføring ➔ BRAIN: Vurderer tidsfrist & historik ➔ TOOL: Genererer og afsender rykker-mail",
+        desc: "Overvåger ubetalte fakturaer i dit bogføringssystem og udsender automatisk gennemtænkte, høflige rykker-påmindelser til tiden.",
+        roi: "Forbedrer din virksomheds likviditet og forkorter den gennemsnitlige betalingstid med op til 40% uden at skade kunderelationen.",
         price: "Fra 499 kr./md. + opsætning"
       },
       {
@@ -562,8 +604,8 @@
         type: "single",
         badge: "Salg & Beregning",
         title: "Tilbuds-assistent DMA",
-        desc: "Bygger specifikke kundetilbud baseret på kravspecifikationer, notater eller formular-ønsker.",
-        tbt: "TRIGGER: Formular m. kundeønsker ➔ BRAIN: Beregner priser & tilbudstekst ➔ TOOL: Genererer PDF og mailer udkast",
+        desc: "Beregner hurtigt priser, sammensætter tilbudstekst og genererer en færdig PDF-kontrakt klar til afsendelse ud fra dine notater.",
+        roi: "Sender tilbud ud på få minutter i stedet for dage. Først-til-mølle princippet vinder ofte ordren i konkurrenceprægede brancher.",
         price: "Fra 499 kr./md. + opsætning"
       },
       {
@@ -571,17 +613,19 @@
         type: "single",
         badge: "Dokumenter & ERP",
         title: "Arkivar DMA",
-        desc: "Læser, strukturerer og arkiverer bilag, kontrakter og dokumenter direkte i dit ERP eller Drive.",
-        tbt: "TRIGGER: Ny fil uploadet/Modtaget PDF ➔ BRAIN: Ekstraherer CVR, beløb & datoer ➔ TOOL: Gemmer struktureret i system",
+        desc: "Trækker automatisk data fra modtagne bilag, kontrakter og fakturaer, og gemmer dem fejlfrit i dit ERP, Google Drive eller NocoDB.",
+        roi: "Fjerner 100% af manuelt indtastningsarbejde og minimerer risikoen for dyre tastefejl i regnskabet.",
         price: "Fra 499 kr./md. + opsætning"
       },
+
+      // Teams
       {
         id: "salgsmaskine",
         type: "team",
         badge: "Samlet Salgsafdeling",
         title: "UniqIQ Salgs- & Mødebooking-maskine",
-        desc: "Samlet team af Leadindhenter, SoMe DMA, Mødebooker og Tilbuds-assistent, der kører hele salgs-tragten autonomt.",
-        tbt: "SoMe-tiltrækning ➔ Lead-berigelse i CRM ➔ Automatisk mødebooking ➔ Skræddersyet tilbuds-PDF",
+        desc: "En fuldt autonom salgsafdeling bestående af Leadindhenter, SoMe DMA, Mødebooker og Tilbuds-assistent der arbejder tæt sammen.",
+        roi: "Leverer en komplet salgstragt fra første opmærksomhed til booket møde og sendt tilbud – svarende til en ekstra fuldtidssælger.",
         price: "Fra 1.490 kr./md. (Team-pakke)"
       },
       {
@@ -589,27 +633,35 @@
         type: "team",
         badge: "Samlet HR & Onboarding",
         title: "UniqIQ HR & Onboarding-center",
-        desc: "Onboarding DMA, Tolk DMA og Arkivar DMA samlet. Guider nye ansatte, oversætter håndbøger og tjekker kontrakter.",
-        tbt: "Ny oprettelse ➔ Kontrol af bilag ➔ Fagspecifik oversættelse ➔ Daglige onboarding-opgaver",
+        desc: "Sammenslutning af Onboarding DMA, Tolk DMA og Arkivar DMA. Tager hånd om nye medarbejdere og oversætter interne håndbøger.",
+        roi: "Sikrer professionel, ensartet onboarding fra dag 1 og sparer HR-afdelingen for adskillige timers introduktionsarbejde pr. nyansat.",
         price: "Fra 1.490 kr./md. (Team-pakke)"
       }
     ];
 
     let selectedDma = null;
 
-    // 3. RENDER KATALOG-KORT
-    function renderCatalog(filter = 'all', btnElement = null) {
-      if (btnElement) {
-        document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-        btnElement.classList.add('active');
+    // 3. SKIFT KATEGORI OG VIS KORT (Tomt som standard)
+    function selectCategory(type) {
+      const btnSingle = document.getElementById('btn-single');
+      const btnTeam = document.getElementById('btn-team');
+
+      if (type === 'single') {
+        btnSingle.classList.add('active');
+        btnTeam.classList.remove('active');
+      } else {
+        btnTeam.classList.add('active');
+        btnSingle.classList.remove('active');
       }
 
+      renderCatalog(type);
+    }
+
+    function renderCatalog(filter) {
       const grid = document.getElementById('dma-grid');
       grid.innerHTML = '';
 
-      const filteredData = filter === 'all' 
-        ? dmaCatalog 
-        : dmaCatalog.filter(item => item.type === filter);
+      const filteredData = dmaCatalog.filter(item => item.type === filter);
 
       filteredData.forEach(item => {
         const card = document.createElement('div');
@@ -630,7 +682,7 @@
       });
     }
 
-    // 4. POP-UP MODAL FUNKTIONER
+    // 4. MODAL FUNKTIONER
     function openModal(id) {
       selectedDma = dmaCatalog.find(item => item.id === id);
       if (!selectedDma) return;
@@ -639,7 +691,7 @@
       document.getElementById('modal-title').innerText = selectedDma.title;
       document.getElementById('modal-price').innerText = selectedDma.price;
       document.getElementById('modal-description').innerText = selectedDma.desc;
-      document.getElementById('modal-tbt').innerText = selectedDma.tbt;
+      document.getElementById('modal-roi').innerText = selectedDma.roi;
 
       document.getElementById('dma-modal').style.display = 'flex';
     }
@@ -664,7 +716,7 @@
       }
     }
 
-    // 5. ONBOARDING SUBMIT TIL N8N WEBHOOK
+    // 5. ONBOARDING SUBMIT
     function ensureHttp(input) {
       let val = input.value.trim();
       if (val && !/^https?:\/\//i.test(val)) {
@@ -706,7 +758,6 @@
 
     // INITIALISERING
     document.addEventListener('DOMContentLoaded', () => {
-      renderCatalog('all');
       const icon = document.getElementById('theme-icon');
       if (savedTheme === 'light') {
         icon.className = 'fa-solid fa-moon';
