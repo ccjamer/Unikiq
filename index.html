@@ -23,6 +23,10 @@
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
     
+    html {
+      scroll-behavior: smooth; /* Blød scrolling for alle anker-links */
+    }
+
     /* ORGANISK SWIRL BAGGRUND */
     body {
       font-family: 'Inter', sans-serif;
@@ -35,6 +39,17 @@
       background-attachment: fixed;
       line-height: 1.6;
       overflow-x: hidden;
+    }
+
+    /* Scroll Reveal Animationer */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+    }
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     /* Navigation */
@@ -92,32 +107,9 @@
     .hero p { font-size: 1.25rem; color: #334155; font-weight: 500; margin-bottom: 35px; max-width: 800px; margin-left: auto; margin-right: auto; }
     .hero-buttons { display: flex; justify-content: center; gap: 18px; flex-wrap: wrap; margin-bottom: 30px; }
     
-    /* Væsentligt mindre og mere kompakte feature-bobler */
-    .hero-features { 
-      display: flex; 
-      justify-content: center; 
-      gap: 10px; 
-      flex-wrap: wrap; 
-      color: #334155; 
-      font-size: 0.78rem; 
-      font-weight: 500; 
-    }
-    
-    .hero-features span { 
-      display: inline-flex; 
-      align-items: center; 
-      gap: 5px; 
-      background: rgba(255, 255, 255, 0.65); 
-      padding: 4px 12px; 
-      border-radius: 20px; 
-      border: 1px solid rgba(255, 255, 255, 0.5); 
-      backdrop-filter: blur(4px); 
-      box-shadow: 0 2px 6px rgba(0,0,0,0.02);
-    }
-    
-    .hero-features i { 
-      font-size: 0.75rem; 
-    }
+    .hero-features { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; color: #334155; font-size: 0.78rem; font-weight: 500; }
+    .hero-features span { display: inline-flex; align-items: center; gap: 5px; background: rgba(255, 255, 255, 0.65); padding: 4px 12px; border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.5); backdrop-filter: blur(4px); box-shadow: 0 2px 6px rgba(0,0,0,0.02); }
+    .hero-features i { font-size: 0.75rem; }
 
     /* Grid Sections */
     .section { max-width: 1200px; margin: 90px auto; padding: 0 20px; }
@@ -166,7 +158,7 @@
     .main-cat-btn.active i { color: #ffffff; }
 
     /* DMA Card styling */
-    .dma-card { background: rgba(255, 255, 255, 0.95); border: 1px solid var(--border-light); border-radius: 20px; padding: 30px; cursor: pointer; transition: all 0.3s; display: flex; flex-direction: column; justify-content: space-between; }
+    .dma-card { background: rgba(255, 255, 255, 0.95); border: 1px solid var(--border-light); border-radius: 20px; padding: 30px; cursor: pointer; transition: all 0.3s; display: flex; flex-direction: column; justify-content: space-between; animation: fadeUp 0.5s ease-out; }
     .dma-card:hover { transform: translateY(-5px); border-color: var(--accent-blue); box-shadow: 0 15px 35px rgba(0,0,0,0.08); }
     .badge { display: inline-block; background: rgba(59, 130, 246, 0.12); color: var(--accent-blue); padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; margin-bottom: 15px; align-self: flex-start; }
     .dma-card h3 { font-family: 'Caladea', serif; font-size: 1.5rem; margin-bottom: 10px; color: #0f172a; }
@@ -174,10 +166,16 @@
     .card-footer { display: flex; justify-content: flex-end; align-items: center; border-top: 1px solid var(--border-light); padding-top: 15px; font-size: 0.9rem; }
     .read-more { color: var(--accent-blue); font-weight: 600; }
 
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
     /* Modal Pop-Up */
     .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(8px); z-index: 2000; justify-content: center; align-items: center; padding: 20px; }
     .modal-content { background: #ffffff; border-radius: 24px; max-width: 700px; width: 100%; max-height: 85vh; overflow-y: auto; padding: 40px; position: relative; box-shadow: 0 20px 40px rgba(0,0,0,0.2); color: #0f172a; }
-    .close-btn { position: absolute; top: 20px; right: 25px; background: none; border: none; color: #64748b; font-size: 1.8rem; cursor: pointer; }
+    .close-btn { position: absolute; top: 20px; right: 25px; background: none; border: none; color: #64748b; font-size: 1.8rem; cursor: pointer; transition: color 0.2s; }
+    .close-btn:hover { color: #0f172a; }
     .modal-header h3 { font-family: 'Caladea', serif; font-size: 2.2rem; margin: 10px 0; color: #0f172a; }
     
     .roi-box { background: #f0fdf4; border-left: 4px solid #10b981; padding: 18px; border-radius: 12px; margin: 20px 0; }
@@ -249,13 +247,24 @@
       50% { transform: translateY(-6px); }
     }
 
-    /* Footer */
-    footer { background: #071022; border-top: 1px solid var(--border-dark); padding: 80px 20px 30px; margin-top: 100px; color: #ffffff; }
+    /* Footer & System Status */
+    footer { background: #071022; border-top: 1px solid var(--border-dark); padding: 80px 20px 40px; margin-top: 100px; color: #ffffff; }
     .footer-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; margin-bottom: 60px; }
     .footer-col h4 { font-size: 1.1rem; margin-bottom: 20px; color: #ffffff; }
     .footer-col a { color: #94a3b8; text-decoration: none; display: block; margin-bottom: 12px; font-size: 0.95rem; transition: color 0.2s; cursor: pointer; }
     .footer-col a:hover { color: var(--accent-blue); }
-    .copyright { text-align: center; color: #94a3b8; font-size: 0.85rem; border-top: 1px solid var(--border-dark); padding-top: 30px; }
+    
+    .copyright-area { text-align: center; border-top: 1px solid var(--border-dark); padding-top: 30px; display: flex; flex-direction: column; gap: 15px; align-items: center; }
+    .copyright { color: #94a3b8; font-size: 0.85rem; }
+    
+    .system-status { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.05); padding: 6px 14px; border-radius: 20px; font-size: 0.8rem; color: #cbd5e1; border: 1px solid var(--border-dark); }
+    .pulse-dot { width: 8px; height: 8px; background: #10b981; border-radius: 50%; box-shadow: 0 0 8px #10b981; animation: statusPulse 2s infinite; }
+    
+    @keyframes statusPulse {
+      0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+      70% { box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+    }
 
     @media (max-width: 768px) {
       .hero h1 { font-size: 2.6rem; flex-direction: column; gap: 5px; }
@@ -292,7 +301,7 @@
   </header>
 
   <!-- Hero Section -->
-  <section class="hero">
+  <section class="hero reveal">
     <h1>
       Intelligente 
       <span class="ai-badge"><i class="fa-solid fa-wand-magic-sparkles"></i> AI</span> 
@@ -306,7 +315,7 @@
       <a href="#dma-catalog" class="btn btn-secondary">Udforsk DMA-Kataloget</a>
     </div>
 
-    <!-- Mindre, elegante bobler på samlet linje -->
+    <!-- Mindre, elegante bobler -->
     <div class="hero-features">
       <span><i class="fa-solid fa-star" style="color: #f59e0b;"></i> Ingen binding & transparent pris</span>
       <span><i class="fa-solid fa-shield-halved" style="color: #10b981;"></i> 100% data-ejerskab & GDPR</span>
@@ -316,12 +325,12 @@
 
   <!-- DMA KATALOG SEKTION -->
   <section class="section" id="dma-catalog">
-    <div class="section-title">
+    <div class="section-title reveal">
       <h2>Vores Digitale Medarbejdere (DMA)</h2>
       <p>Brug kataloget nedenfor som inspiration til, hvordan en digital medarbejder kan tilpasses din virksomhed. Vælg en enkelt funktion eller sammensæt et helt team til at løfte dine opgaver.</p>
     </div>
 
-    <div class="category-select-wrapper">
+    <div class="category-select-wrapper reveal">
       <button class="main-cat-btn" id="btn-single" onclick="selectCategory('single')">
         <i class="fa-solid fa-user-gear"></i> Enkelte DMA'er
       </button>
@@ -335,14 +344,13 @@
 
   <!-- LØSNINGER & PRISER SEKTION -->
   <section class="section" id="solutions">
-    <div class="section-title">
+    <div class="section-title reveal">
       <h2>Fleksibel prisstruktur uden binding</h2>
       <p>I betaler kun for reel værdi – test teknikken før I bestemmer jer.</p>
     </div>
 
     <div class="grid-3" id="pricing">
-      <!-- Pakke 1 -->
-      <div class="card">
+      <div class="card reveal">
         <div>
           <div class="card-icon"><i class="fa-solid fa-robot"></i></div>
           <h3>Gratis AI Widget</h3>
@@ -358,8 +366,7 @@
         <a href="#onboarding" class="btn btn-secondary" style="width:100%; justify-content:center;">Kom i gang på 60 sek.</a>
       </div>
 
-      <!-- Pakke 2: Avanceret DMA -->
-      <div class="card" style="border-color: var(--accent-blue)">
+      <div class="card reveal" style="border-color: var(--accent-blue)">
         <div>
           <div class="card-icon"><i class="fa-solid fa-gears"></i></div>
           <h3>Avanceret DMA</h3>
@@ -376,8 +383,7 @@
         <a href="#onboarding" class="btn btn-primary" style="width:100%; justify-content:center;">Vælg denne løsning</a>
       </div>
 
-      <!-- Pakke 3: Skræddersyet Løsning -->
-      <div class="card">
+      <div class="card reveal">
         <div>
           <div class="card-icon"><i class="fa-solid fa-sliders"></i></div>
           <h3>Skræddersyet Løsning</h3>
@@ -398,7 +404,7 @@
 
   <!-- ONBOARDING FORMULAR SEKTION -->
   <section class="section dark-section" id="onboarding">
-    <div class="unikiq-form-card">
+    <div class="unikiq-form-card reveal">
       <div class="section-title" style="margin-bottom: 25px;">
         <h2>Opret din AI Chat Widget</h2>
         <p>Udfyld felterne nedenfor for at få genereret din unikke widget-kode på under 1 minut.</p>
@@ -439,26 +445,26 @@
   </section>
 
   <!-- Branche Use Cases -->
-  <section class="section" id="use-cases">
-    <div class="section-title">
+  <section class="section dark-section" id="use-cases">
+    <div class="section-title reveal">
       <h2>Hvem bruger UniqIQ?</h2>
       <p>Skræddersyede AI-medarbejdere der løser specifikke flaskehalse i din branche.</p>
     </div>
 
     <div class="grid-3">
-      <div class="card">
+      <div class="card reveal">
         <h3>Håndværk & Byggeri</h3>
         <p>Slip for at bruge aftenen på tilbud og skemaer. Vores AI screener opgaver, indsamler billeder og booker besigtigelser direkte i din kalender.</p>
         <span style="color:var(--accent-blue); font-weight:600;">+12 timer sparret om ugen</span>
       </div>
 
-      <div class="card">
+      <div class="card reveal">
         <h3>E-handel & Webshops</h3>
         <p>Besvarer produktspørgsmål, guider til den rette størrelse og slår ordrestatus op direkte i dit webshopsystem – øjeblikkeligt 24/7.</p>
         <span style="color:var(--accent-blue); font-weight:600;">+28% konvertering på nattrafik</span>
       </div>
 
-      <div class="card">
+      <div class="card reveal">
         <h3>Klinikker & B2B Service</h3>
         <p>Kvalificerer indkommende forespørgsler, tjekker budgetter og booker møder direkte i konsulenternes eller behandlernes kalender uden afbrydelser.</p>
         <span style="color:var(--accent-blue); font-weight:600;">-50% færre "No-shows"</span>
@@ -468,7 +474,7 @@
 
   <!-- Sådan virker det -->
   <section class="section" id="how-it-works">
-    <div class="steps-container">
+    <div class="steps-container reveal">
       <h2 style="font-family: 'Caladea', serif; font-size: 2.2rem; margin-bottom: 40px; text-align: center; color:#0f172a;">Få din nye digitale medarbejder i 3 trin</h2>
       
       <div class="step-item">
@@ -498,18 +504,18 @@
   </section>
 
   <!-- FAQ Section -->
-  <section class="section" id="faqs">
-    <div class="section-title">
+  <section class="section dark-section" id="faqs">
+    <div class="section-title reveal">
       <h2>Ofte stillede spørgsmål</h2>
     </div>
 
     <div class="grid-2">
-      <div class="card">
+      <div class="card reveal">
         <h3>Hvor sikre er mine data?</h3>
         <p>Dine data er 100% beskyttet på vore egne private servere på en lukket VPS. Vi bruger ikke 3.-parts cloud-systemer, hvor dine data deles eller bruges til træning.</p>
       </div>
 
-      <div class="card">
+      <div class="card reveal">
         <h3>Mister vi kontrollen med AI?</h3>
         <p>Nej. AI'en følger stramt opstillede retningslinjer (System Prompts). Ved uafklarede eller følsomme henvendelser stiller den automatisk kunden om til et menneske.</p>
       </div>
@@ -523,7 +529,7 @@
     <span class="close-callout" onclick="document.getElementById('widget-promo').style.display='none'">&times;</span>
   </div>
 
-  <!-- Footer med Juridiske Links -->
+  <!-- Footer med Dynamisk Dato & Ur -->
   <footer>
     <div class="footer-grid">
       <div class="footer-col">
@@ -547,8 +553,13 @@
       </div>
     </div>
 
-    <div class="copyright">
-      © 2026 UniqIQ • CVR: 46184270 • Alle rettigheder forbeholdes.
+    <div class="copyright-area">
+      <div class="system-status">
+        <span class="pulse-dot"></span> System Online • Lokal tid: <span id="live-clock">--:--</span>
+      </div>
+      <div class="copyright">
+        © <span id="current-year"></span> UniqIQ • CVR: 46184270 • Alle rettigheder forbeholdes.
+      </div>
     </div>
   </footer>
 
@@ -579,7 +590,7 @@
     </div>
   </div>
 
-  <!-- DYNAMISK JURIDISK MODAL (Vilkår, GDPR & Privatlivspolitik) -->
+  <!-- DYNAMISK JURIDISK MODAL -->
   <div id="legal-modal" class="modal-overlay" onclick="closeLegalModalOnOuterClick(event)">
     <div class="modal-content">
       <button class="close-btn" onclick="closeLegalModal()">&times;</button>
@@ -588,9 +599,7 @@
         <h3 id="legal-modal-title">Vilkår & Betingelser</h3>
       </div>
 
-      <div class="modal-body legal-body" id="legal-modal-content">
-        <!-- Indhold indsættes dynamisk via JS -->
-      </div>
+      <div class="modal-body legal-body" id="legal-modal-content"></div>
 
       <div class="modal-actions" style="justify-content: flex-end;">
         <button class="btn btn-secondary" onclick="closeLegalModal()">Luk vindue</button>
@@ -598,74 +607,46 @@
     </div>
   </div>
 
-  <!-- SCRIPT LOGIK -->
+  <!-- SCRIPT LOGIK (Inkluderer Animationer & Tids-script) -->
   <script>
+    // 0. High-Tech Funktioner: Ur, Årstal og Scroll Reveal
+    function initHighTechFeatures() {
+      // Sæt nuværende år automatisk
+      document.getElementById('current-year').innerText = new Date().getFullYear();
+
+      // Opdater Live-Ur hvert minut
+      function updateClock() {
+        const nu = new Date();
+        const tid = nu.toLocaleTimeString('da-DK', { hour: '2-digit', minute: '2-digit' });
+        document.getElementById('live-clock').innerText = tid;
+      }
+      updateClock();
+      setInterval(updateClock, 60000);
+
+      // Scroll Reveal (Apple-style fade in)
+      const reveals = document.querySelectorAll('.reveal');
+      const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+            revealObserver.unobserve(entry.target); // Kør kun én gang for performance
+          }
+        });
+      }, { threshold: 0.1 });
+
+      reveals.forEach(reveal => revealObserver.observe(reveal));
+    }
+
     // 1. DMA KATALOG DATA
     const dmaCatalog = [
-      {
-        id: "posthus",
-        type: "single",
-        badge: "Mail & Modtagelse",
-        title: "UniqIQ Posthus",
-        desc: "Overvåger din indbakke 24/7, sorterer indkommende e-mails, udarbejder professionelle svardeklarationer og gemmer bilag direkte i dit arkiv.",
-        roi: "Sparer 10-15 timer om ugen på manuel e-mail sortering og sikrer, at ingen vigtige kundehenvendelser nogensinde falder igennem sprækkerne."
-      },
-      {
-        id: "moedebooker",
-        type: "single",
-        badge: "Salg & Kalender",
-        title: "Mødebooker DMA",
-        desc: "Svarer potentielle kunder med det samme, kvalificerer deres behov og lægger en direkte mødeaftale i din kalender uden tidsspild.",
-        roi: "Øger din salgskonvertering med op til 30% ved at fange varme leads, mens de er mest købsklar – også uden for normal arbejdstid."
-      },
-      {
-        id: "skribent",
-        type: "single",
-        badge: "Tekst & SEO",
-        title: "Skribent DMA",
-        desc: "Skriver fængslende B2B-artikler, blogindlæg, nyhedsbreve og SEO-tekster skræddersyet til din virksomheds tone of voice.",
-        roi: "Sikrer løbende synlighed på Google og sociale medier uden at du skal hyre et dyrt tekstbureau eller bruge aftener på at skrive indhold."
-      },
-      {
-        id: "rykker",
-        type: "single",
-        badge: "Økonomi & Inkasso",
-        title: "Rykker & Inkasso DMA",
-        desc: "Overvåger ubetalte fakturaer i dit bogføringssystem og udsender automatisk gennemtænkte, høflige rykker-påmindelser til tiden.",
-        roi: "Forbedrer din virksomheds likviditet og forkorter den gennemsnitlige betalingstid med op til 40% uden at skade kunderelationen."
-      },
-      {
-        id: "tilbud",
-        type: "single",
-        badge: "Salg & Beregning",
-        title: "Tilbuds-assistent DMA",
-        desc: "Beregner hurtigt priser, sammensætter tilbudstekst og genererer en færdig PDF-kontrakt klar til afsendelse ud fra dine notater.",
-        roi: "Sender tilbud ud på få minutter i stedet for dage. Først-til-mølle princippet vinder ofte ordren i konkurrenceprægede brancher."
-      },
-      {
-        id: "arkivar",
-        type: "single",
-        badge: "Dokumenter & ERP",
-        title: "Arkivar DMA",
-        desc: "Trækker automatisk data fra modtagne bilag, kontrakter og fakturaer, og gemmer dem fejlfrit i dit ERP, Google Drive eller NocoDB.",
-        roi: "Fjerner 100% af manuelt indtastningsarbejde og minimerer risikoen for dyre tastefejl i regnskabet."
-      },
-      {
-        id: "salgsmaskine",
-        type: "team",
-        badge: "Samlet Salgsafdeling",
-        title: "UniqIQ Salgs- & Mødebooking-maskine",
-        desc: "En fuldt autonom salgsafdeling bestående af Leadindhenter, SoMe DMA, Mødebooker og Tilbuds-assistent der arbejder tæt sammen.",
-        roi: "Leverer en komplet salgstragt fra første opmærksomhed til booket møde og sendt tilbud – svarende til en ekstra fuldtidssælger."
-      },
-      {
-        id: "hr-center",
-        type: "team",
-        badge: "Samlet HR & Onboarding",
-        title: "UniqIQ HR & Onboarding-center",
-        desc: "Sammenslutning af Onboarding DMA, Tolk DMA og Arkivar DMA. Tager hånd om nye medarbejdere og oversætter interne håndbøger.",
-        roi: "Sikrer professionel, ensartet onboarding fra dag 1 og sparer HR-afdelingen for adskillige timers introduktionsarbejde pr. nyansat."
-      }
+      { id: "posthus", type: "single", badge: "Mail & Modtagelse", title: "UniqIQ Posthus", desc: "Overvåger din indbakke 24/7, sorterer indkommende e-mails, udarbejder professionelle svardeklarationer og gemmer bilag direkte i dit arkiv.", roi: "Sparer 10-15 timer om ugen på manuel e-mail sortering og sikrer, at ingen vigtige kundehenvendelser nogensinde falder igennem sprækkerne." },
+      { id: "moedebooker", type: "single", badge: "Salg & Kalender", title: "Mødebooker DMA", desc: "Svarer potentielle kunder med det samme, kvalificerer deres behov og lægger en direkte mødeaftale i din kalender uden tidsspild.", roi: "Øger din salgskonvertering med op til 30% ved at fange varme leads, mens de er mest købsklar – også uden for normal arbejdstid." },
+      { id: "skribent", type: "single", badge: "Tekst & SEO", title: "Skribent DMA", desc: "Skriver fængslende B2B-artikler, blogindlæg, nyhedsbreve og SEO-tekster skræddersyet til din virksomheds tone of voice.", roi: "Sikrer løbende synlighed på Google og sociale medier uden at du skal hyre et dyrt tekstbureau eller bruge aftener på at skrive indhold." },
+      { id: "rykker", type: "single", badge: "Økonomi & Inkasso", title: "Rykker & Inkasso DMA", desc: "Overvåger ubetalte fakturaer i dit bogføringssystem og udsender automatisk gennemtænkte, høflige rykker-påmindelser til tiden.", roi: "Forbedrer din virksomheds likviditet og forkorter den gennemsnitlige betalingstid med op til 40% uden at skade kunderelationen." },
+      { id: "tilbud", type: "single", badge: "Salg & Beregning", title: "Tilbuds-assistent DMA", desc: "Beregner hurtigt priser, sammensætter tilbudstekst og genererer en færdig PDF-kontrakt klar til afsendelse ud fra dine notater.", roi: "Sender tilbud ud på få minutter i stedet for dage. Først-til-mølle princippet vinder ofte ordren i konkurrenceprægede brancher." },
+      { id: "arkivar", type: "single", badge: "Dokumenter & ERP", title: "Arkivar DMA", desc: "Trækker automatisk data fra modtagne bilag, kontrakter og fakturaer, og gemmer dem fejlfrit i dit ERP, Google Drive eller NocoDB.", roi: "Fjerner 100% af manuelt indtastningsarbejde og minimerer risikoen for dyre tastefejl i regnskabet." },
+      { id: "salgsmaskine", type: "team", badge: "Samlet Salgsafdeling", title: "UniqIQ Salgs- & Mødebooking-maskine", desc: "En fuldt autonom salgsafdeling bestående af Leadindhenter, SoMe DMA, Mødebooker og Tilbuds-assistent der arbejder tæt sammen.", roi: "Leverer en komplet salgstragt fra første opmærksomhed til booket møde og sendt tilbud – svarende til en ekstra fuldtidssælger." },
+      { id: "hr-center", type: "team", badge: "Samlet HR & Onboarding", title: "UniqIQ HR & Onboarding-center", desc: "Sammenslutning af Onboarding DMA, Tolk DMA og Arkivar DMA. Tager hånd om nye medarbejdere og oversætter interne håndbøger.", roi: "Sikrer professionel, ensartet onboarding fra dag 1 og sparer HR-afdelingen for adskillige timers introduktionsarbejde pr. nyansat." }
     ];
 
     let selectedDma = null;
@@ -681,7 +662,6 @@
         btnTeam.classList.add('active');
         btnSingle.classList.remove('active');
       }
-
       renderCatalog(type);
     }
 
@@ -693,7 +673,7 @@
 
       filteredData.forEach(item => {
         const card = document.createElement('div');
-        card.className = 'dma-card';
+        card.className = 'dma-card reveal active'; // Lader den hoppe direkte ind
         card.onclick = () => openModal(item.id);
         card.innerHTML = `
           <div>
@@ -712,22 +692,15 @@
     function openModal(id) {
       selectedDma = dmaCatalog.find(item => item.id === id);
       if (!selectedDma) return;
-
       document.getElementById('modal-badge').innerText = selectedDma.badge;
       document.getElementById('modal-title').innerText = selectedDma.title;
       document.getElementById('modal-description').innerText = selectedDma.desc;
       document.getElementById('modal-roi').innerText = selectedDma.roi;
-
       document.getElementById('dma-modal').style.display = 'flex';
     }
 
-    function closeModal() {
-      document.getElementById('dma-modal').style.display = 'none';
-    }
-
-    function closeModalOnOuterClick(e) {
-      if (e.target.id === 'dma-modal') closeModal();
-    }
+    function closeModal() { document.getElementById('dma-modal').style.display = 'none'; }
+    function closeModalOnOuterClick(e) { if (e.target.id === 'dma-modal') closeModal(); }
 
     function selectDmaForOrder() {
       closeModal();
@@ -746,57 +719,43 @@
       terms: `
         <h4>1.1 Aftalegrundlag & Ydelser</h4>
         <p>Nærværende vilkår gælder for alle aftaler indgået med UnikIQ (CVR: 46184270) vedrørende udvikling, implementering og drift af Digitale Medarbejdere (DMA) samt tilhørende automatiseringer.</p>
-        
         <h4>1.2 Betaling & Opsigelse</h4>
         <p><b>Opsætning:</b> Engangsgebyrer for opsætning og konfiguration faktureres ved aftaleindgåelse og forfalder før opstart.<br>
         <b>Abonnement:</b> Månedlig drift faktureres forud d. 1. i hver måned med betalingsfrist på Netto 8 dage.<br>
         <b>Opsigelse:</b> Aftalen kan opsiges af begge parter med et varsel på løbende måned + 30 dage.</p>
-
         <h4>1.3 Ansvarsbegrænsning & AI-forbehold</h4>
         <p>Vores Digitale Medarbejdere er baseret på avanceret sprogmodel-teknologi (LLM). UnikIQ kan ikke holdes ansvarlig for utilsigtede fejl, fejlfortolkninger eller hallucinationer genereret af den digitale medarbejder. Kunden er forpligtet til løbende at stikprøvekontrollere svar og workflows.</p>
-        
         <h4>1.4 Tredjepartstjenester & Oppetid</h4>
         <p>UnikIQ tilstræber høj oppetid, men garanterer ikke uafbrudt drift. UnikIQ tager forbehold for nedbrud eller forsinkelser forårsaget af tredjepartsleverandører (OpenAI, Hetzner, Vapi, Twilio m.fl.).</p>
       `,
       privacy: `
         <h4>2.1 Dataansvarlig</h4>
         <p>UnikIQ er dataansvarlig for behandlingen af de personoplysninger, vi modtager om dig på vores hjemmeside (CVR: 46184270, Kontakt: unikiq@unikiq.dk).</p>
-
         <h4>2.2 Brug af Digital Medarbejder</h4>
         <p>Vi anvender digitale medarbejdere til at besvare forespørgsler, yde support og kvalificere leads. Samtaler logges for at sikre korrekt rådgivning og til løbende optimering. Data opbevares fortroligt og anvendes ikke til træning af eksterne, offentlige AI-modeller.</p>
-
         <h4>2.3 Hvilke data indsamler vi?</h4>
         <p><b>Almindelige oplysninger:</b> Navn, e-mail, telefonnummer, CVR og firmanavn oplyst ved kontakt.<br>
         <b>Brugsdata:</b> IP-adresse og adfærd på hjemmesiden.<br>
         <b>Klientdata:</b> Ved implementering af DMA'er behandler vi kun data nødvendige for løsningens funktion og altid underlagt en indgået Databehandleraftale (DPA).</p>
-
         <h4>2.4 Dine rettigheder</h4>
         <p>Du har til enhver tid ret til indsigt, berigtigelse, indsigelse samt anmodning om sletning ("retten til at blive glemt") ved skriftlig henvendelse til unikiq@unikiq.dk.</p>
       `,
       gdpr: `
         <h4>3.1 Overholdelse af Databeskyttelsesforordningen</h4>
         <p>UnikIQ overholder gældende EU-databeskyttelseslovgivning (GDPR). Vi sikrer, at alle personoplysninger behandles lovligt, rimeligt og på en gennemsigtig måde.</p>
-
         <h4>3.2 Lukkede Kredsløb & Enterprise API (Zero Data Retention)</h4>
-        <p>Alle vores Digitale Medarbejdere kommunikerer via lukkede Enterprise API-forbindelser. Det garanteres, at hverken kundedata, forretningshemmeligheder eller samtalelogs anvendes af vore underleverandører (herunder OpenAI) til at træne offentlige AI-modeller. Data opbevares i isolerede miljøer.</p>
-
+        <p>Alle vores Digitale Medarbejdere kommunikerer via lukkede Enterprise API-forbindelser. Det garanteres, at hverken kundedata, forretningshemmeligheder eller samtalelogs anvendes af vore underleverandører (herunder OpenAI) til at træne offentlige AI-modeller.</p>
         <h4>3.3 Dataplacering & EU-Hosting</h4>
         <p>Vores primære infrastruktur afvikles på egne, dedikerede og sikrede servere i Frankfurt, Tyskland (Hetzner Online GmbH).</p>
-
         <h4>3.4 Tekniske og Organisatoriske Sikkerhedsforanstaltninger</h4>
         <p>Al datatrafik er krypteret med stærk SSL/TLS-kryptering (256-bit). Følsomme systemnøgler opbevares stærkt krypteret, og al adgang kræver to-faktor-godkendelse (2FA).</p>
-
-        <h4>Godkendte Underdatabehandlere (Bilag 1):</h4>
+        <h4>Godkendte Underdatabehandlere:</h4>
         <table>
-          <thead>
-            <tr><th>Leverandør</th><th>Formål</th><th>Dataplacering</th></tr>
-          </thead>
+          <thead><tr><th>Leverandør</th><th>Formål</th><th>Dataplacering</th></tr></thead>
           <tbody>
-            <tr><td>OpenAI Ireland Ltd.</td><td>AI-intelligens (LLM via API / Zero Retention)</td><td>EU / USA (DPA sikret)</td></tr>
-            <tr><td>Hetzner Online GmbH</td><td>Serverhosting af egen infrastruktur</td><td>EU (Tyskland)</td></tr>
+            <tr><td>OpenAI Ireland Ltd.</td><td>AI-intelligens (LLM via API)</td><td>EU / USA (DPA sikret)</td></tr>
+            <tr><td>Hetzner Online GmbH</td><td>Serverhosting af infrastruktur</td><td>EU (Tyskland)</td></tr>
             <tr><td>Make.com / Celonis</td><td>Workflow-automatisering</td><td>EU (Tyskland)</td></tr>
-            <tr><td>Google Cloud / Workspace</td><td>Sikker fillagring og dokumentation</td><td>EU / USA (DPA sikret)</td></tr>
-            <tr><td>Vapi / Twilio Inc.</td><td>AI-telefoni og opkaldshåndtering</td><td>USA (DPA sikret)</td></tr>
           </tbody>
         </table>
       `
@@ -807,42 +766,25 @@
       const title = document.getElementById('legal-modal-title');
       const content = document.getElementById('legal-modal-content');
 
-      if (type === 'terms') {
-        title.innerText = 'Vilkår & Betingelser';
-        content.innerHTML = legalTexts.terms;
-      } else if (type === 'privacy') {
-        title.innerText = 'Privatlivspolitik';
-        content.innerHTML = legalTexts.privacy;
-      } else if (type === 'gdpr') {
-        title.innerText = 'GDPR & Datasikkerhedsgaranti';
-        content.innerHTML = legalTexts.gdpr;
-      }
-
+      if (type === 'terms') { title.innerText = 'Vilkår & Betingelser'; content.innerHTML = legalTexts.terms; }
+      else if (type === 'privacy') { title.innerText = 'Privatlivspolitik'; content.innerHTML = legalTexts.privacy; }
+      else if (type === 'gdpr') { title.innerText = 'GDPR & Datasikkerhedsgaranti'; content.innerHTML = legalTexts.gdpr; }
       modal.style.display = 'flex';
     }
-
-    function closeLegalModal() {
-      document.getElementById('legal-modal').style.display = 'none';
-    }
-
-    function closeLegalModalOnOuterClick(e) {
-      if (e.target.id === 'legal-modal') closeLegalModal();
-    }
+    function closeLegalModal() { document.getElementById('legal-modal').style.display = 'none'; }
+    function closeLegalModalOnOuterClick(e) { if (e.target.id === 'legal-modal') closeLegalModal(); }
 
     // 3. ONBOARDING SUBMIT
     function ensureHttp(input) {
       let val = input.value.trim();
-      if (val && !/^https?:\/\//i.test(val)) {
-        input.value = 'https://' + val;
-      }
+      if (val && !/^https?:\/\//i.test(val)) { input.value = 'https://' + val; }
     }
 
     async function handleFormSubmit(e) {
       e.preventDefault();
       const btn = document.getElementById('submit-btn');
       btn.innerHTML = '<span>Opretter din widget...</span>';
-      btn.style.opacity = '0.7';
-      btn.disabled = true;
+      btn.style.opacity = '0.7'; btn.disabled = true;
 
       const payload = {
         url: document.getElementById('url').value,
@@ -853,21 +795,22 @@
 
       try {
         await fetch('https://n8n.unikiq.dk/webhook/opret-kunde', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
+          method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload)
         });
-
         alert('Tillykke! Din Chat Widget er oprettet. Tjek din e-mail for instruktioner og installeringskode.');
         document.getElementById('onboarding-form').reset();
       } catch (err) {
         alert('Tak! Din oprettelse er modtaget. Tjek din indbakke om få minutter.');
       } finally {
         btn.innerHTML = '<span>Opret min Chat Widget</span><i class="fa-solid fa-arrow-right"></i>';
-        btn.style.opacity = '1';
-        btn.disabled = false;
+        btn.style.opacity = '1'; btn.disabled = false;
       }
     }
+
+    // INITIALISERING
+    document.addEventListener('DOMContentLoaded', () => {
+      initHighTechFeatures();
+    });
   </script>
 
   <!-- UniqIQ Official Webhook Widget integration -->
