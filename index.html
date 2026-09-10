@@ -96,12 +96,79 @@
     .tbt-box p { font-size: 0.9rem; color: var(--text-white); font-family: monospace; }
     .modal-actions { display: flex; gap: 15px; margin-top: 30px; }
 
-    /* Form Section */
-    .form-container { background: var(--card-dark); border: 1px solid var(--border-color); border-radius: 24px; padding: 50px 40px; max-width: 800px; margin: 0 auto; }
-    .form-group { margin-bottom: 20px; }
-    .form-group label { display: block; margin-bottom: 8px; font-weight: 500; font-size: 0.95rem; }
-    .form-control { width: 100%; padding: 14px 18px; border-radius: 12px; background: rgba(11, 25, 50, 0.6); border: 1px solid var(--border-color); color: var(--text-white); font-family: var(--font-body); font-size: 1rem; }
-    .form-control:focus { outline: none; border-color: var(--accent-blue); }
+    /* Onboarding & Contact Form Section */
+    .unikiq-form-card {
+      max-width: 650px;
+      margin: 0 auto;
+      padding: 40px;
+      background: var(--card-dark);
+      border-radius: 24px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--border-color);
+    }
+    .unikiq-form { display: flex; flex-direction: column; gap: 20px; }
+    .unikiq-field { display: flex; flex-direction: column; gap: 8px; flex: 1; }
+    .unikiq-field-row { display: flex; gap: 16px; }
+    .unikiq-field label { font-size: 0.85rem; font-weight: 600; color: var(--text-white); }
+    .unikiq-optional { font-weight: 400; color: var(--text-muted); }
+
+    .unikiq-field input[type="text"],
+    .unikiq-field input[type="email"] {
+      width: 100%;
+      height: 48px;
+      padding: 0 16px;
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      font-size: 0.95rem;
+      color: var(--text-white);
+      outline: none;
+      transition: all 0.2s ease;
+      background-color: rgba(11, 25, 50, 0.6);
+      font-family: var(--font-body);
+    }
+    .unikiq-field input:focus { border-color: var(--accent-blue); background-color: var(--bg-dark); }
+
+    .unikiq-color-input-box {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      height: 48px;
+      padding: 0 12px;
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      background-color: rgba(11, 25, 50, 0.6);
+    }
+    .unikiq-color-input-box input[type="color"] {
+      -webkit-appearance: none;
+      border: none;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      cursor: pointer;
+      background: none;
+    }
+    .unikiq-color-input-box input[type="color"]::-webkit-color-swatch-wrapper { padding: 0; }
+    .unikiq-color-input-box input[type="color"]::-webkit-color-swatch { border: 1px solid var(--border-color); border-radius: 50%; }
+    .unikiq-color-input-box span { font-size: 0.85rem; color: var(--text-muted); }
+
+    .unikiq-submit-btn {
+      margin-top: 12px;
+      height: 52px;
+      background-color: var(--accent-blue);
+      color: #ffffff;
+      border: none;
+      border-radius: 30px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      box-shadow: 0 4px 14px rgba(59, 130, 246, 0.4);
+      transition: all 0.2s ease;
+    }
+    .unikiq-submit-btn:hover { background-color: var(--accent-blue-hover); transform: translateY(-2px); }
 
     /* Steps Section */
     .steps-container { background: var(--card-dark); border: 1px solid var(--border-color); border-radius: 24px; padding: 50px 40px; }
@@ -122,6 +189,7 @@
       .hero h1 { font-size: 2.5rem; }
       .nav-links { display: none; }
       .grid-2, .grid-3 { grid-template-columns: 1fr; }
+      .unikiq-field-row { flex-direction: column; }
       .modal-actions { flex-direction: column; }
     }
   </style>
@@ -137,11 +205,11 @@
       <ul class="nav-links">
         <li><a href="#dma-catalog">Digitale Medarbejdere</a></li>
         <li><a href="#solutions">Priser</a></li>
+        <li><a href="#onboarding">Opret Widget</a></li>
         <li><a href="#how-it-works">Sådan virker det</a></li>
-        <li><a href="#use-cases">Brancher</a></li>
         <li><a href="#faqs">FAQ</a></li>
       </ul>
-      <a href="#contact" class="btn btn-primary">Bestil DMA <i class="fa-solid fa-arrow-right"></i></a>
+      <a href="#onboarding" class="btn btn-primary">Opret Widget Nu <i class="fa-solid fa-arrow-right"></i></a>
     </div>
   </header>
 
@@ -151,8 +219,8 @@
     <p>Automatisér jeres kontaktformularer, tilbudsgenerering og trivielle hverdagsopgaver. Med en digital medarbejder får kunden svar på få sekunder, mens I sparer timer på manuelt tastearbejde.</p>
     
     <div class="hero-buttons">
-      <a href="#dma-catalog" class="btn btn-primary">Udforsk DMA-Kataloget</a>
-      <a href="#contact" class="btn btn-secondary">Kontakt os direkte</a>
+      <a href="#onboarding" class="btn btn-primary">Opret gratis widget på 1 min.</a>
+      <a href="#dma-catalog" class="btn btn-secondary">Udforsk DMA-Kataloget</a>
     </div>
 
     <div class="hero-features">
@@ -180,6 +248,50 @@
     <div class="grid-3" id="dma-grid"></div>
   </section>
 
+  <!-- ONBOARDING FORMULAR SEKTION (INDBYGGET DIREKTE) -->
+  <section class="section" id="onboarding">
+    <div class="unikiq-form-card">
+      <div class="section-title" style="margin-bottom: 25px;">
+        <h2>Opret din AI Chat Widget</h2>
+        <p>Udfyld felterne nedenfor for at få genereret din unikke widget-kode på under 1 minut.</p>
+      </div>
+
+      <form id="onboarding-form" onsubmit="handleFormSubmit(event)" class="unikiq-form">
+        
+        <div class="unikiq-field">
+          <label for="url">Din Hjemmeside URL *</label>
+          <input type="text" id="url" name="url" placeholder="dinvirksomhed.dk" required onblur="ensureHttp(this)" />
+        </div>
+
+        <div class="unikiq-field">
+          <label for="email">Din E-mailadresse *</label>
+          <input type="email" id="email" name="email" placeholder="din@email.dk" required />
+        </div>
+
+        <div class="unikiq-field-row">
+          <div class="unikiq-field">
+            <label for="title">Ønsket Widget Navn <span class="unikiq-optional">(Valgfrit)</span></label>
+            <input type="text" id="title" name="title" placeholder="F.eks. Digitale assistent" />
+          </div>
+
+          <div class="unikiq-field unikiq-color-picker-wrap">
+            <label for="brand_color">Brand Farve <span class="unikiq-optional">(Valgfrit)</span></label>
+            <div class="unikiq-color-input-box">
+              <input type="color" id="brand_color" name="brand_color" value="#3B82F6" />
+              <span>Vælg primær farve</span>
+            </div>
+          </div>
+        </div>
+
+        <button type="submit" class="unikiq-submit-btn" id="submit-btn">
+          <span>Opret min Chat Widget</span>
+          <i class="fa-solid fa-arrow-right"></i>
+        </button>
+
+      </form>
+    </div>
+  </section>
+
   <!-- Løsninger & Priser -->
   <section class="section" id="solutions">
     <div class="section-title">
@@ -200,7 +312,7 @@
           <li><i class="fa-solid fa-check"></i> 24/7 automatisk kundeservice</li>
           <li><i class="fa-solid fa-check"></i> Gratis indtil den har bevist sin værdi</li>
         </ul>
-        <a href="#contact" class="btn btn-secondary" style="width:100%; justify-content:center;">Kom i gang på 60 sek.</a>
+        <a href="#onboarding" class="btn btn-secondary" style="width:100%; justify-content:center;">Kom i gang på 60 sek.</a>
       </div>
 
       <!-- Pakke 2 -->
@@ -215,7 +327,7 @@
           <li><i class="fa-solid fa-check"></i> Integration til CRM & E-mail systemer</li>
           <li><i class="fa-solid fa-check"></i> Avancerede API-integrationer</li>
         </ul>
-        <a href="#contact" class="btn btn-primary" style="width:100%; justify-content:center;">Vælg denne løsning</a>
+        <a href="#onboarding" class="btn btn-primary" style="width:100%; justify-content:center;">Vælg denne løsning</a>
       </div>
     </div>
   </section>
@@ -256,8 +368,8 @@
       <div class="step-item">
         <div class="step-number">1</div>
         <div class="step-content">
-          <h4>Beskriv dit behov</h4>
-          <p>Fortæl os kort hvilken opgave eller proces i din virksomhed, du ønsker at frigøre tid fra.</p>
+          <h4>Beskriv dit behov / Opret Widget</h4>
+          <p>Udfyld formularen ovenfor med din URL og e-mail for at modtage din unikke chat-kode.</p>
         </div>
       </div>
 
@@ -276,36 +388,6 @@
           <p>I får et færdigt, køreklar interface. AI-medarbejderen svarer jeres kunder øjeblikkeligt fra dag ét.</p>
         </div>
       </div>
-    </div>
-  </section>
-
-  <!-- KONTAKTFORMULAR SEKTION -->
-  <section class="section" id="contact">
-    <div class="form-container">
-      <div class="section-title" style="margin-bottom:30px;">
-        <h2>Kom i gang med din DMA</h2>
-        <p>Udfyld formularen – så vender vi tilbage med en gratis rådgivning eller opsætning.</p>
-      </div>
-
-      <form id="uniqiq-contact-form" onsubmit="submitForm(event)">
-        <div class="form-group">
-          <label for="form-name">Navn *</label>
-          <input type="text" id="form-name" class="form-control" placeholder="Dit navn" required />
-        </div>
-        <div class="form-group">
-          <label for="form-email">E-mailadresse *</label>
-          <input type="email" id="form-email" class="form-control" placeholder="din@virksomhed.dk" required />
-        </div>
-        <div class="form-group">
-          <label for="form-company">Virksomhed / CVR</label>
-          <input type="text" id="form-company" class="form-control" placeholder="Firmanavn" />
-        </div>
-        <div class="form-group">
-          <label for="form-message">Hvad ønsker du hjælp til? *</label>
-          <textarea id="form-message" class="form-control" rows="4" placeholder="Beskriv jeres behov eller den valgte DMA..." required></textarea>
-        </div>
-        <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center;">Send forespørgsel</button>
-      </form>
     </div>
   </section>
 
@@ -339,9 +421,9 @@
       <div class="footer-col">
         <h4>Navigation</h4>
         <a href="#dma-catalog">DMA-Katalog</a>
+        <a href="#onboarding">Opret Widget</a>
         <a href="#solutions">Løsninger & Priser</a>
         <a href="#use-cases">Brancher</a>
-        <a href="#how-it-works">Processen</a>
       </div>
 
       <div class="footer-col">
@@ -385,7 +467,7 @@
     </div>
   </div>
 
-  <!-- SCRIPT LOGIK FOR MODAL, KATALOG OG FORMULAR -->
+  <!-- SCRIPT LOGIK FOR MODAL, KATALOG OG ONBOARDING FORMULAR -->
   <script>
     // 1. DMA KATALOG DATA
     const dmaCatalog = [
@@ -522,41 +604,57 @@
 
     function selectDmaForOrder() {
       closeModal();
-      const formElement = document.getElementById('contact');
+      const formElement = document.getElementById('onboarding');
       if (formElement) {
         formElement.scrollIntoView({ behavior: 'smooth' });
-        const msgInput = document.getElementById('form-message');
-        if (msgInput && selectedDma) {
-          msgInput.value = `Jeg ønsker mere information/bestilling af: ${selectedDma.title} (${selectedDma.price})`;
+        const titleInput = document.getElementById('title');
+        if (titleInput && selectedDma) {
+          titleInput.value = selectedDma.title;
         }
       }
     }
 
-    // 4. FORMULAR SUBMIT TIL N8N WEBHOOK
-    async function submitForm(e) {
-      e.preventDefault();
-      const formData = {
-        name: document.getElementById('form-name').value,
-        email: document.getElementById('form-email').value,
-        company: document.getElementById('form-company').value,
-        message: document.getElementById('form-message').value
-      };
-
-      try {
-        const res = await fetch('https://n8n.unikiq.dk/webhook/unikiq-form', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(formData)
-        });
-        
-        alert('Mange tak for din henvendelse! Vi vender tilbage til dig inden for få timer.');
-        document.getElementById('uniqiq-contact-form').reset();
-      } catch (err) {
-        alert('Tak for din henvendelse! (Systemet har registreret din besked).');
+    // 4. ONBOARDING SUBMIT TIL N8N WEBHOOK
+    function ensureHttp(input) {
+      let val = input.value.trim();
+      if (val && !/^https?:\/\//i.test(val)) {
+        input.value = 'https://' + val;
       }
     }
 
-    // BUILD INITIAL KATALOG AT LOAD
+    async function handleFormSubmit(e) {
+      e.preventDefault();
+      const btn = document.getElementById('submit-btn');
+      btn.innerHTML = '<span>Opretter din widget...</span>';
+      btn.style.opacity = '0.7';
+      btn.disabled = true;
+
+      const payload = {
+        url: document.getElementById('url').value,
+        email: document.getElementById('email').value,
+        title: document.getElementById('title').value || 'Digitale assistent',
+        brand_color: document.getElementById('brand_color').value
+      };
+
+      try {
+        await fetch('https://n8n.unikiq.dk/webhook/opret-kunde', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        alert('Tillykke! Din Chat Widget er oprettet. Tjek din e-mail for instruktioner og installeringskode.');
+        document.getElementById('onboarding-form').reset();
+      } catch (err) {
+        alert('Tak! Din oprettelse er modtaget. Tjek din indbakke om få minutter.');
+      } finally {
+        btn.innerHTML = '<span>Opret min Chat Widget</span><i class="fa-solid fa-arrow-right"></i>';
+        btn.style.opacity = '1';
+        btn.disabled = false;
+      }
+    }
+
+    // INITIALISERING
     document.addEventListener('DOMContentLoaded', () => {
       renderCatalog('all');
     });
