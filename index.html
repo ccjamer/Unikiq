@@ -2,7 +2,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>UniqIQ | Intelligente Workflows & Digitale Medarbejdere (DMA)</title>
+  <title>UniqIQ | Intelligente AI Workflows & Digitale Medarbejdere</title>
   <meta name="description" content="Frigør tid med intelligente AI-agenter skræddersyet til din branche. Automatisér kontaktformularer, kundeservice og tunge rutineopgaver.">
   
   <link rel="icon" href="https://framerusercontent.com/images/wyg3uNFx6UKKha1DK57Z7vOmBI.png">
@@ -16,8 +16,9 @@
       --accent-blue: #3b82f6;
       --accent-blue-hover: #2563eb;
       --text-white: #ffffff;
+      --text-dark: #0f172a;
       --text-muted: #94a3b8;
-      --border-color: rgba(255, 255, 255, 0.1);
+      --border-color: rgba(255, 255, 255, 0.12);
       --font-heading: 'Caladea', serif;
       --font-body: 'Inter', sans-serif;
     }
@@ -26,28 +27,72 @@
     body { font-family: var(--font-body); color: var(--text-white); background: var(--bg-dark); line-height: 1.6; overflow-x: hidden; }
 
     /* Navigation */
-    header { background: rgba(11, 25, 50, 0.85); backdrop-filter: blur(10px); position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid var(--border-color); }
+    header { background: rgba(11, 25, 50, 0.85); backdrop-filter: blur(12px); position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid var(--border-color); }
     .nav-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; }
     .logo-img { height: 38px; width: auto; display: block; }
     .nav-links { display: flex; gap: 30px; list-style: none; }
     .nav-links a { text-decoration: none; color: var(--text-muted); font-weight: 500; font-size: 0.95rem; transition: color 0.2s; }
     .nav-links a:hover { color: var(--text-white); }
     
-    /* Buttons */
-    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 26px; border-radius: 50px; font-weight: 600; text-decoration: none; cursor: pointer; transition: all 0.2s; border: none; font-size: 0.95rem; }
-    .btn-primary { background: var(--accent-blue); color: var(--text-white); box-shadow: 0 4px 14px rgba(59, 130, 246, 0.4); }
-    .btn-primary:hover { background: var(--accent-blue-hover); transform: translateY(-2px); }
-    .btn-secondary { background: var(--card-dark); color: var(--text-white); border: 1px solid var(--border-color); }
-    .btn-secondary:hover { background: #1c2d52; border-color: var(--text-muted); }
+    /* Buttons with Hover Effects */
+    .btn { display: inline-flex; align-items: center; gap: 10px; padding: 14px 28px; border-radius: 50px; font-weight: 600; text-decoration: none; cursor: pointer; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); border: none; font-size: 0.95rem; }
+    .btn-primary { background: var(--accent-blue); color: var(--text-white); box-shadow: 0 4px 18px rgba(59, 130, 246, 0.45); }
+    .btn-primary:hover { background: var(--accent-blue-hover); transform: translateY(-3px); box-shadow: 0 8px 25px rgba(59, 130, 246, 0.6); }
+    .btn-secondary { background: rgba(19, 34, 63, 0.85); color: var(--text-white); border: 1px solid var(--border-color); backdrop-filter: blur(5px); }
+    .btn-secondary:hover { background: #1c2d52; border-color: var(--text-muted); transform: translateY(-3px); }
 
-    /* Hero Section */
-    .hero { padding: 120px 20px 80px; text-align: center; max-width: 900px; margin: 0 auto; }
-    .hero h1 { font-family: var(--font-heading); font-size: 3.8rem; line-height: 1.15; font-weight: 400; margin-bottom: 25px; }
-    .hero h1 span { font-weight: 700; color: var(--accent-blue); }
-    .hero p { font-size: 1.25rem; color: var(--text-muted); margin-bottom: 35px; max-width: 750px; margin-left: auto; margin-right: auto; }
-    .hero-buttons { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin-bottom: 40px; }
-    .hero-features { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; color: var(--text-muted); font-size: 0.9rem; }
-    .hero-features span { display: flex; align-items: center; gap: 8px; }
+    /* Hero Section with Light/Cloud & Robot Background Motif */
+    .hero-wrapper {
+      position: relative;
+      background: url('https://framerusercontent.com/images/1QeSAtPdrM7iS2A7M92X5f4O2k.jpg') center center / cover no-repeat;
+      padding: 110px 20px 90px;
+      text-align: center;
+      border-bottom: 1px solid var(--border-color);
+    }
+    .hero-overlay {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: radial-gradient(circle, rgba(11, 25, 50, 0.45) 0%, rgba(11, 25, 50, 0.88) 100%);
+      z-index: 1;
+    }
+    .hero { position: relative; z-index: 2; max-width: 950px; margin: 0 auto; }
+    
+    .hero h1 { 
+      font-family: var(--font-heading); 
+      font-size: 4rem; 
+      line-height: 1.15; 
+      font-weight: 400; 
+      margin-bottom: 25px; 
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    }
+
+    /* Little AI Logo Badge */
+    .ai-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: linear-gradient(135deg, #2563eb, #3b82f6);
+      color: #ffffff;
+      font-family: var(--font-body);
+      font-size: 1.5rem;
+      font-weight: 800;
+      padding: 4px 18px;
+      border-radius: 16px;
+      box-shadow: 0 4px 15px rgba(59, 130, 246, 0.5);
+      border: 1px solid rgba(255,255,255,0.3);
+      vertical-align: middle;
+    }
+
+    .hero p { font-size: 1.2rem; color: #e2e8f0; margin-bottom: 35px; max-width: 800px; margin-left: auto; margin-right: auto; text-shadow: 0 1px 4px rgba(0,0,0,0.6); }
+    .hero-buttons { display: flex; justify-content: center; gap: 18px; flex-wrap: wrap; margin-bottom: 45px; }
+    
+    .hero-features { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; color: #cbd5e1; font-size: 0.95rem; font-weight: 500; }
+    .hero-features span { display: flex; align-items: center; gap: 8px; background: rgba(11, 25, 50, 0.6); padding: 6px 16px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.08); }
     .hero-features i { color: var(--accent-blue); }
 
     /* Grid Sections */
@@ -96,7 +141,7 @@
     .tbt-box p { font-size: 0.9rem; color: var(--text-white); font-family: monospace; }
     .modal-actions { display: flex; gap: 15px; margin-top: 30px; }
 
-    /* Onboarding & Contact Form Section */
+    /* Onboarding Section */
     .unikiq-form-card {
       max-width: 650px;
       margin: 0 auto;
@@ -166,9 +211,9 @@
       justify-content: center;
       gap: 10px;
       box-shadow: 0 4px 14px rgba(59, 130, 246, 0.4);
-      transition: all 0.2s ease;
+      transition: all 0.3s ease;
     }
-    .unikiq-submit-btn:hover { background-color: var(--accent-blue-hover); transform: translateY(-2px); }
+    .unikiq-submit-btn:hover { background-color: var(--accent-blue-hover); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(59, 130, 246, 0.6); }
 
     /* Steps Section */
     .steps-container { background: var(--card-dark); border: 1px solid var(--border-color); border-radius: 24px; padding: 50px 40px; }
@@ -186,7 +231,7 @@
     .copyright { text-align: center; color: var(--text-muted); font-size: 0.85rem; border-top: 1px solid var(--border-color); padding-top: 30px; }
 
     @media (max-width: 768px) {
-      .hero h1 { font-size: 2.5rem; }
+      .hero h1 { font-size: 2.6rem; flex-direction: column; gap: 5px; }
       .nav-links { display: none; }
       .grid-2, .grid-3 { grid-template-columns: 1fr; }
       .unikiq-field-row { flex-direction: column; }
@@ -213,22 +258,30 @@
     </div>
   </header>
 
-  <!-- Hero Section -->
-  <section class="hero">
-    <h1>Intelligente <span>Workflows</span> & Digital Medarbejder</h1>
-    <p>Automatisér jeres kontaktformularer, tilbudsgenerering og trivielle hverdagsopgaver. Med en digital medarbejder får kunden svar på få sekunder, mens I sparer timer på manuelt tastearbejde.</p>
-    
-    <div class="hero-buttons">
-      <a href="#onboarding" class="btn btn-primary">Opret gratis widget på 1 min.</a>
-      <a href="#dma-catalog" class="btn btn-secondary">Udforsk DMA-Kataloget</a>
-    </div>
+  <!-- Hero Section med Robot/Sky baggrund og AI Logo -->
+  <div class="hero-wrapper">
+    <div class="hero-overlay"></div>
+    <section class="hero">
+      <h1>
+        Intelligente 
+        <span class="ai-badge"><i class="fa-solid fa-wand-magic-sparkles"></i> AI</span> 
+        Workflows
+      </h1>
+      
+      <p>Automatisér jeres kontaktformularer, tilbudsgenerering og trivielle hverdagsopgaver. Med en digital medarbejder får kunden svar på få sekunder, mens I sparer timer på manuelt tastearbejde.</p>
+      
+      <div class="hero-buttons">
+        <a href="#onboarding" class="btn btn-primary">Opret gratis widget på 60 sek. <i class="fa-solid fa-arrow-right"></i></a>
+        <a href="#dma-catalog" class="btn btn-secondary">Udforsk DMA-Kataloget</a>
+      </div>
 
-    <div class="hero-features">
-      <span><i class="fa-solid fa-check"></i> Ingen binding & transparent pris</span>
-      <span><i class="fa-solid fa-shield-halved"></i> 100% data-ejerskab & GDPR</span>
-      <span><i class="fa-solid fa-bolt"></i> Lynhurtig opsætning</span>
-    </div>
-  </section>
+      <div class="hero-features">
+        <span><i class="fa-solid fa-star" style="color: #f59e0b;"></i> Ingen binding & transparent pris</span>
+        <span><i class="fa-solid fa-shield-halved" style="color: #10b981;"></i> 100% data-ejerskab & GDPR</span>
+        <span><i class="fa-solid fa-bolt"></i> Start din automatiseringsproces med lynets hast</span>
+      </div>
+    </section>
+  </div>
 
   <!-- DMA KATALOG SEKTION -->
   <section class="section" id="dma-catalog">
