@@ -24,7 +24,7 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
     
     html {
-      scroll-behavior: smooth; /* Blød scrolling for alle anker-links */
+      scroll-behavior: smooth;
     }
 
     /* ORGANISK SWIRL BAGGRUND */
@@ -74,7 +74,8 @@
     .nav-right { display: flex; align-items: center; gap: 15px; }
 
     /* Buttons */
-    .btn { display: inline-flex; align-items: center; gap: 10px; padding: 14px 28px; border-radius: 50px; font-weight: 600; text-decoration: none; cursor: pointer; transition: all 0.3s ease; border: none; font-size: 0.95rem; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 14px 28px; border-radius: 50px; font-weight: 600; text-decoration: none; cursor: pointer; transition: all 0.3s ease; border: none; font-size: 0.95rem; }
+    .btn-sm { padding: 10px 20px; font-size: 0.85rem; } /* Til cookie boks */
     .btn-primary { background: var(--accent-blue); color: #ffffff; box-shadow: 0 4px 18px rgba(37, 99, 235, 0.35); }
     .btn-primary:hover { background: var(--accent-blue-hover); transform: translateY(-3px); box-shadow: 0 8px 25px rgba(37, 99, 235, 0.5); }
     .btn-secondary { background: rgba(255, 255, 255, 0.85); color: var(--text-dark); border: 1px solid var(--border-light); backdrop-filter: blur(5px); }
@@ -247,6 +248,36 @@
       50% { transform: translateY(-6px); }
     }
 
+    /* --- COOKIE BUBBLE DESIGN --- */
+    .cookie-bubble {
+      position: fixed;
+      bottom: 25px;
+      left: 25px;
+      max-width: 380px;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--border-light);
+      border-radius: 20px;
+      padding: 25px;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      transform: translateY(150px);
+      opacity: 0;
+      transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .cookie-bubble.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    .cookie-content { display: flex; gap: 15px; align-items: flex-start; }
+    .cookie-icon { font-size: 1.8rem; color: var(--accent-blue); }
+    .cookie-text h4 { font-family: 'Caladea', serif; font-size: 1.2rem; margin-bottom: 5px; color: #0f172a; }
+    .cookie-text p { font-size: 0.85rem; color: #475569; line-height: 1.5; }
+    .cookie-actions { display: flex; gap: 10px; justify-content: flex-end; width: 100%; margin-top: 5px; }
+
     /* Footer & System Status */
     footer { background: #071022; border-top: 1px solid var(--border-dark); padding: 80px 20px 40px; margin-top: 100px; color: #ffffff; }
     .footer-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; margin-bottom: 60px; }
@@ -274,6 +305,9 @@
       .category-select-wrapper { flex-direction: column; width: 100%; }
       .main-cat-btn { width: 100%; justify-content: center; }
       .widget-promo-callout { display: none; }
+      .cookie-bubble { bottom: 15px; left: 15px; right: 15px; max-width: calc(100% - 30px); }
+      .cookie-actions { flex-direction: column; }
+      .cookie-actions .btn { width: 100%; justify-content: center; }
     }
   </style>
 </head>
@@ -529,6 +563,21 @@
     <span class="close-callout" onclick="document.getElementById('widget-promo').style.display='none'">&times;</span>
   </div>
 
+  <!-- COOKIE BUBBLE -->
+  <div class="cookie-bubble" id="cookie-bubble">
+    <div class="cookie-content">
+      <div class="cookie-icon"><i class="fa-solid fa-cookie-bite"></i></div>
+      <div class="cookie-text">
+        <h4>Vi bruger cookies</h4>
+        <p>Vi bruger cookies for at forbedre din oplevelse, analysere trafik og optimere vores digitale medarbejdere. Vælg venligst dine præferencer.</p>
+      </div>
+    </div>
+    <div class="cookie-actions">
+      <button class="btn btn-secondary btn-sm" onclick="acceptCookies('necessary')">Kun nødvendige</button>
+      <button class="btn btn-primary btn-sm" onclick="acceptCookies('all')">Accepter alle</button>
+    </div>
+  </div>
+
   <!-- Footer med Dynamisk Dato & Ur -->
   <footer>
     <div class="footer-grid">
@@ -607,14 +656,14 @@
     </div>
   </div>
 
-  <!-- SCRIPT LOGIK (Inkluderer Animationer & Tids-script) -->
+  <!-- SCRIPT LOGIK -->
   <script>
-    // 0. High-Tech Funktioner: Ur, Årstal og Scroll Reveal
+    // 0. High-Tech Funktioner & Cookie Logik
     function initHighTechFeatures() {
-      // Sæt nuværende år automatisk
+      // Sæt nuværende år
       document.getElementById('current-year').innerText = new Date().getFullYear();
 
-      // Opdater Live-Ur hvert minut
+      // Opdater Live-Ur
       function updateClock() {
         const nu = new Date();
         const tid = nu.toLocaleTimeString('da-DK', { hour: '2-digit', minute: '2-digit' });
@@ -623,18 +672,40 @@
       updateClock();
       setInterval(updateClock, 60000);
 
-      // Scroll Reveal (Apple-style fade in)
+      // Scroll Reveal
       const reveals = document.querySelectorAll('.reveal');
       const revealObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             entry.target.classList.add('active');
-            revealObserver.unobserve(entry.target); // Kør kun én gang for performance
+            revealObserver.unobserve(entry.target);
           }
         });
       }, { threshold: 0.1 });
 
       reveals.forEach(reveal => revealObserver.observe(reveal));
+    }
+
+    function initCookieBubble() {
+      const cookieBubble = document.getElementById('cookie-bubble');
+      const hasConsented = localStorage.getItem('uniqiq_cookie_consent');
+      
+      if (!hasConsented) {
+        setTimeout(() => {
+          cookieBubble.classList.add('show');
+        }, 1500); // Vises 1.5 sekund efter siden er loadet
+      } else {
+        cookieBubble.style.display = 'none';
+      }
+    }
+
+    function acceptCookies(type) {
+      localStorage.setItem('uniqiq_cookie_consent', type);
+      const cookieBubble = document.getElementById('cookie-bubble');
+      cookieBubble.classList.remove('show');
+      setTimeout(() => {
+        cookieBubble.style.display = 'none';
+      }, 600); // Venter på css transition
     }
 
     // 1. DMA KATALOG DATA
@@ -673,7 +744,7 @@
 
       filteredData.forEach(item => {
         const card = document.createElement('div');
-        card.className = 'dma-card reveal active'; // Lader den hoppe direkte ind
+        card.className = 'dma-card reveal active'; 
         card.onclick = () => openModal(item.id);
         card.innerHTML = `
           <div>
@@ -810,6 +881,7 @@
     // INITIALISERING
     document.addEventListener('DOMContentLoaded', () => {
       initHighTechFeatures();
+      initCookieBubble();
     });
   </script>
 
