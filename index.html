@@ -75,7 +75,7 @@
 
     /* Buttons */
     .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 14px 28px; border-radius: 50px; font-weight: 600; text-decoration: none; cursor: pointer; transition: all 0.3s ease; border: none; font-size: 0.95rem; }
-    .btn-sm { padding: 10px 20px; font-size: 0.85rem; } /* Til cookie boks */
+    .btn-sm { padding: 10px 20px; font-size: 0.85rem; }
     .btn-primary { background: var(--accent-blue); color: #ffffff; box-shadow: 0 4px 18px rgba(37, 99, 235, 0.35); }
     .btn-primary:hover { background: var(--accent-blue-hover); transform: translateY(-3px); box-shadow: 0 8px 25px rgba(37, 99, 235, 0.5); }
     .btn-secondary { background: rgba(255, 255, 255, 0.85); color: var(--text-dark); border: 1px solid var(--border-light); backdrop-filter: blur(5px); }
@@ -191,18 +191,24 @@
 
     .modal-actions { display: flex; gap: 15px; margin-top: 30px; }
 
-    /* Onboarding Section */
-    .unikiq-form-card { max-width: 650px; margin: 0 auto; padding: 40px; background: var(--card-bg-dark); border-radius: 24px; border: 1px solid var(--border-dark); box-shadow: 0 20px 40px rgba(0,0,0,0.3); color: #ffffff; }
+    /* --- HYBRID ONBOARDING & KONTAKT FORMULAR --- */
+    .unikiq-form-card { max-width: 680px; margin: 0 auto; padding: 40px; background: var(--card-bg-dark); border-radius: 24px; border: 1px solid var(--border-dark); box-shadow: 0 20px 40px rgba(0,0,0,0.3); color: #ffffff; }
+    
+    .form-tabs { display: flex; justify-content: center; gap: 8px; margin-bottom: 25px; background: var(--card-inner-dark); padding: 6px; border-radius: 30px; border: 1px solid var(--border-dark); }
+    .form-tab { flex: 1; text-align: center; padding: 10px 14px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; color: #94a3b8; cursor: pointer; transition: all 0.2s ease; }
+    .form-tab.active { background: var(--accent-blue); color: #ffffff; box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3); }
+
     .unikiq-form { display: flex; flex-direction: column; gap: 20px; }
     .unikiq-field { display: flex; flex-direction: column; gap: 8px; flex: 1; }
     .unikiq-field-row { display: flex; gap: 16px; }
     .unikiq-field label { font-size: 0.85rem; font-weight: 600; color: #ffffff; }
     .unikiq-optional { font-weight: 400; color: #94a3b8; }
 
-    .unikiq-field input[type="text"], .unikiq-field input[type="email"] {
-      width: 100%; height: 48px; padding: 0 16px; border: 1px solid var(--border-dark); border-radius: 12px; font-size: 0.95rem; color: #ffffff; outline: none; transition: all 0.2s ease; background-color: var(--card-inner-dark); font-family: 'Inter', sans-serif;
+    .unikiq-field input[type="text"], .unikiq-field input[type="email"], .unikiq-field input[type="tel"], .unikiq-field textarea {
+      width: 100%; padding: 12px 16px; border: 1px solid var(--border-dark); border-radius: 12px; font-size: 0.95rem; color: #ffffff; outline: none; transition: all 0.2s ease; background-color: var(--card-inner-dark); font-family: 'Inter', sans-serif;
     }
-    .unikiq-field input:focus { border-color: var(--accent-blue); }
+    .unikiq-field textarea { resize: vertical; min-height: 90px; }
+    .unikiq-field input:focus, .unikiq-field textarea:focus { border-color: var(--accent-blue); }
 
     .unikiq-color-input-box { display: flex; align-items: center; gap: 12px; height: 48px; padding: 0 12px; border: 1px solid var(--border-dark); border-radius: 12px; background-color: var(--card-inner-dark); }
     .unikiq-color-input-box input[type="color"] { -webkit-appearance: none; border: none; width: 32px; height: 32px; border-radius: 50%; cursor: pointer; background: none; }
@@ -248,7 +254,7 @@
       50% { transform: translateY(-6px); }
     }
 
-    /* --- COOKIE BUBBLE DESIGN --- */
+    /* Cookie Bubble */
     .cookie-bubble {
       position: fixed;
       bottom: 25px;
@@ -268,10 +274,7 @@
       opacity: 0;
       transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    .cookie-bubble.show {
-      transform: translateY(0);
-      opacity: 1;
-    }
+    .cookie-bubble.show { transform: translateY(0); opacity: 1; }
     .cookie-content { display: flex; gap: 15px; align-items: flex-start; }
     .cookie-icon { font-size: 1.8rem; color: var(--accent-blue); }
     .cookie-text h4 { font-family: 'Caladea', serif; font-size: 1.2rem; margin-bottom: 5px; color: #0f172a; }
@@ -308,6 +311,7 @@
       .cookie-bubble { bottom: 15px; left: 15px; right: 15px; max-width: calc(100% - 30px); }
       .cookie-actions { flex-direction: column; }
       .cookie-actions .btn { width: 100%; justify-content: center; }
+      .form-tabs { flex-direction: column; }
     }
   </style>
 </head>
@@ -323,13 +327,13 @@
       <ul class="nav-links">
         <li><a href="#dma-catalog">Digitale Medarbejdere</a></li>
         <li><a href="#solutions">Priser</a></li>
-        <li><a href="#onboarding">Opret Widget</a></li>
+        <li><a href="#onboarding">Opret / Kontakt</a></li>
         <li><a href="#how-it-works">Sådan virker det</a></li>
         <li><a href="#faqs">FAQ</a></li>
       </ul>
 
       <div class="nav-right">
-        <a href="#onboarding" class="btn btn-primary">Opret Widget Nu <i class="fa-solid fa-arrow-right"></i></a>
+        <a href="#onboarding" onclick="switchFormMode('widget')" class="btn btn-primary">Opret Widget Nu <i class="fa-solid fa-arrow-right"></i></a>
       </div>
     </div>
   </header>
@@ -345,11 +349,10 @@
     <p>Automatisér jeres kontaktformularer, tilbudsgenerering og trivielle hverdagsopgaver. Med en digital medarbejder får kunden svar på få sekunder, mens I sparer timer på manuelt tastearbejde.</p>
     
     <div class="hero-buttons">
-      <a href="#onboarding" class="btn btn-primary">Opret gratis widget på 60 sek. <i class="fa-solid fa-arrow-right"></i></a>
+      <a href="#onboarding" onclick="switchFormMode('widget')" class="btn btn-primary">Opret gratis widget på 60 sek. <i class="fa-solid fa-arrow-right"></i></a>
       <a href="#dma-catalog" class="btn btn-secondary">Udforsk DMA-Kataloget</a>
     </div>
 
-    <!-- Mindre, elegante bobler -->
     <div class="hero-features">
       <span><i class="fa-solid fa-star" style="color: #f59e0b;"></i> Ingen binding & transparent pris</span>
       <span><i class="fa-solid fa-shield-halved" style="color: #10b981;"></i> 100% data-ejerskab & GDPR</span>
@@ -384,6 +387,7 @@
     </div>
 
     <div class="grid-3" id="pricing">
+      <!-- Pakke 1 -->
       <div class="card reveal">
         <div>
           <div class="card-icon"><i class="fa-solid fa-robot"></i></div>
@@ -397,9 +401,10 @@
             <li><i class="fa-solid fa-check"></i> Gratis indtil den har bevist sin værdi</li>
           </ul>
         </div>
-        <a href="#onboarding" class="btn btn-secondary" style="width:100%; justify-content:center;">Kom i gang på 60 sek.</a>
+        <a href="#onboarding" onclick="switchFormMode('widget')" class="btn btn-secondary" style="width:100%; justify-content:center;">Kom i gang på 60 sek.</a>
       </div>
 
+      <!-- Pakke 2: Avanceret DMA -->
       <div class="card reveal" style="border-color: var(--accent-blue)">
         <div>
           <div class="card-icon"><i class="fa-solid fa-gears"></i></div>
@@ -414,9 +419,10 @@
             <li><i class="fa-solid fa-check"></i> Avancerede API-integrationer</li>
           </ul>
         </div>
-        <a href="#onboarding" class="btn btn-primary" style="width:100%; justify-content:center;">Vælg denne løsning</a>
+        <a href="#onboarding" onclick="switchFormMode('pro')" class="btn btn-primary" style="width:100%; justify-content:center;">Vælg denne løsning</a>
       </div>
 
+      <!-- Pakke 3: Skræddersyet Løsning -->
       <div class="card reveal">
         <div>
           <div class="card-icon"><i class="fa-solid fa-sliders"></i></div>
@@ -431,37 +437,55 @@
             <li><i class="fa-solid fa-check"></i> Tilpasset kompleks B2B-integration</li>
           </ul>
         </div>
-        <a href="#onboarding" class="btn btn-secondary" style="width:100%; justify-content:center;">Indhent tilbud</a>
+        <a href="#onboarding" onclick="switchFormMode('custom')" class="btn btn-secondary" style="width:100%; justify-content:center;">Indhent tilbud</a>
       </div>
     </div>
   </section>
 
-  <!-- ONBOARDING FORMULAR SEKTION -->
+  <!-- HYBRID ONBOARDING & KONTAKT FORMULAR SEKTION -->
   <section class="section dark-section" id="onboarding">
     <div class="unikiq-form-card reveal">
+      
+      <!-- Formular Faner -->
+      <div class="form-tabs">
+        <div class="form-tab active" id="tab-widget" onclick="switchFormMode('widget')">Gratis AI Widget</div>
+        <div class="form-tab" id="tab-pro" onclick="switchFormMode('pro')">Avanceret DMA</div>
+        <div class="form-tab" id="tab-custom" onclick="switchFormMode('custom')">Skræddersyet / Enterprise</div>
+      </div>
+
       <div class="section-title" style="margin-bottom: 25px;">
-        <h2>Opret din AI Chat Widget</h2>
-        <p>Udfyld felterne nedenfor for at få genereret din unikke widget-kode på under 1 minut.</p>
+        <h2 id="form-title">Opret din AI Chat Widget</h2>
+        <p id="form-subtitle">Udfyld felterne nedenfor for at få genereret din unikke widget-kode på under 1 minut.</p>
       </div>
 
       <form id="onboarding-form" onsubmit="handleFormSubmit(event)" class="unikiq-form">
+        
+        <input type="hidden" id="form_type" name="type" value="widget">
+
         <div class="unikiq-field">
-          <label for="url">Din Hjemmeside URL *</label>
+          <label for="url" id="label-url">Din Hjemmeside URL *</label>
           <input type="text" id="url" name="url" placeholder="dinvirksomhed.dk" required onblur="ensureHttp(this)" />
         </div>
 
-        <div class="unikiq-field">
-          <label for="email">Din E-mailadresse *</label>
-          <input type="email" id="email" name="email" placeholder="din@email.dk" required />
+        <div class="unikiq-field-row">
+          <div class="unikiq-field">
+            <label for="email">Din E-mailadresse *</label>
+            <input type="email" id="email" name="email" placeholder="din@email.dk" required />
+          </div>
+
+          <div class="unikiq-field" id="field-phone" style="display:none;">
+            <label for="phone">Telefonnummer <span class="unikiq-optional">(Valgfrit)</span></label>
+            <input type="tel" id="phone" name="phone" placeholder="+45 12 34 56 78" />
+          </div>
         </div>
 
-        <div class="unikiq-field-row">
+        <div class="unikiq-field-row" id="row-widget-fields">
           <div class="unikiq-field">
             <label for="title">Ønsket Widget Navn <span class="unikiq-optional">(Valgfrit)</span></label>
             <input type="text" id="title" name="title" placeholder="F.eks. Digitale assistent" />
           </div>
 
-          <div class="unikiq-field unikiq-color-picker-wrap">
+          <div class="unikiq-field unikiq-color-picker-wrap" id="field-color">
             <label for="brand_color">Brand Farve <span class="unikiq-optional">(Valgfrit)</span></label>
             <div class="unikiq-color-input-box">
               <input type="color" id="brand_color" name="brand_color" value="#3B82F6" />
@@ -470,10 +494,16 @@
           </div>
         </div>
 
+        <div class="unikiq-field" id="field-message" style="display:none;">
+          <label for="message">Beskriv dine ønsker / behov <span class="unikiq-optional">(Valgfrit)</span></label>
+          <textarea id="message" name="message" placeholder="Fortæl os kort om hvilke opgaver eller workflows du ønsker automatiseret..."></textarea>
+        </div>
+
         <button type="submit" class="unikiq-submit-btn" id="submit-btn">
-          <span>Opret min Chat Widget</span>
+          <span id="btn-text">Opret min Chat Widget</span>
           <i class="fa-solid fa-arrow-right"></i>
         </button>
+
       </form>
     </div>
   </section>
@@ -589,7 +619,7 @@
       <div class="footer-col">
         <h4>Navigation</h4>
         <a href="#dma-catalog">DMA-Katalog</a>
-        <a href="#onboarding">Opret Widget</a>
+        <a href="#onboarding">Opret / Kontakt</a>
         <a href="#solutions">Løsninger & Priser</a>
         <a href="#use-cases">Brancher</a>
       </div>
@@ -658,12 +688,10 @@
 
   <!-- SCRIPT LOGIK -->
   <script>
-    // 0. High-Tech Funktioner & Cookie Logik
+    // 0. High-Tech Funktioner, Cookie & Formular-Skift
     function initHighTechFeatures() {
-      // Sæt nuværende år
       document.getElementById('current-year').innerText = new Date().getFullYear();
 
-      // Opdater Live-Ur
       function updateClock() {
         const nu = new Date();
         const tid = nu.toLocaleTimeString('da-DK', { hour: '2-digit', minute: '2-digit' });
@@ -672,7 +700,6 @@
       updateClock();
       setInterval(updateClock, 60000);
 
-      // Scroll Reveal
       const reveals = document.querySelectorAll('.reveal');
       const revealObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -689,11 +716,8 @@
     function initCookieBubble() {
       const cookieBubble = document.getElementById('cookie-bubble');
       const hasConsented = localStorage.getItem('uniqiq_cookie_consent');
-      
       if (!hasConsented) {
-        setTimeout(() => {
-          cookieBubble.classList.add('show');
-        }, 1500); // Vises 1.5 sekund efter siden er loadet
+        setTimeout(() => { cookieBubble.classList.add('show'); }, 1500);
       } else {
         cookieBubble.style.display = 'none';
       }
@@ -703,9 +727,62 @@
       localStorage.setItem('uniqiq_cookie_consent', type);
       const cookieBubble = document.getElementById('cookie-bubble');
       cookieBubble.classList.remove('show');
-      setTimeout(() => {
-        cookieBubble.style.display = 'none';
-      }, 600); // Venter på css transition
+      setTimeout(() => { cookieBubble.style.display = 'none'; }, 600);
+    }
+
+    // FORMULAR SKIFT-TILSTAND LOGIK
+    function switchFormMode(mode) {
+      const tabWidget = document.getElementById('tab-widget');
+      const tabPro = document.getElementById('tab-pro');
+      const tabCustom = document.getElementById('tab-custom');
+      
+      const formTitle = document.getElementById('form-title');
+      const formSubtitle = document.getElementById('form-subtitle');
+      const btnText = document.getElementById('btn-text');
+      const formTypeInput = document.getElementById('form_type');
+
+      const rowWidgetFields = document.getElementById('row-widget-fields');
+      const fieldPhone = document.getElementById('field-phone');
+      const fieldMessage = document.getElementById('field-message');
+
+      // Nulstil aktive faner
+      tabWidget.classList.remove('active');
+      tabPro.classList.remove('active');
+      tabCustom.classList.remove('active');
+
+      if (mode === 'widget') {
+        tabWidget.classList.add('active');
+        formTypeInput.value = 'widget';
+        formTitle.innerText = 'Opret din AI Chat Widget';
+        formSubtitle.innerText = 'Udfyld felterne nedenfor for at få genereret din unikke widget-kode på under 1 minut.';
+        btnText.innerText = 'Opret min Chat Widget';
+
+        rowWidgetFields.style.display = 'flex';
+        fieldPhone.style.display = 'none';
+        fieldMessage.style.display = 'none';
+      } 
+      else if (mode === 'pro') {
+        tabPro.classList.add('active');
+        formTypeInput.value = 'avanceret_dma';
+        formTitle.innerText = 'Bestil Avanceret DMA';
+        formSubtitle.innerText = 'Udfyld formularen for at starte opsætningen af jeres avancerede automatiseringsmotor.';
+        btnText.innerText = 'Indsend forespørgsel';
+
+        rowWidgetFields.style.display = 'none';
+        fieldPhone.style.display = 'block';
+        fieldMessage.style.display = 'block';
+      } 
+      else if (mode === 'custom') {
+        tabCustom.classList.add('active');
+        formTypeInput.value = 'skraeddersyet';
+        formTitle.innerText = 'Indhent Skræddersyet Tilbud';
+        formSubtitle.innerText = 'Lad os drøfte jeres specifikke workflows, integrationer og virksomhedsbehov.';
+        btnText.innerText = 'Bliv kontaktet af en ekspert';
+
+        rowWidgetFields.style.display = 'none';
+        fieldPhone.style.display = 'block';
+        fieldMessage.style.display = 'block';
+      }
     }
 
     // 1. DMA KATALOG DATA
@@ -775,12 +852,13 @@
 
     function selectDmaForOrder() {
       closeModal();
+      switchFormMode('pro');
       const formElement = document.getElementById('onboarding');
       if (formElement) {
         formElement.scrollIntoView({ behavior: 'smooth' });
-        const titleInput = document.getElementById('title');
-        if (titleInput && selectedDma) {
-          titleInput.value = selectedDma.title;
+        const messageInput = document.getElementById('message');
+        if (messageInput && selectedDma) {
+          messageInput.value = 'Jeg er interesseret i at høre mere om: ' + selectedDma.title;
         }
       }
     }
@@ -854,27 +932,37 @@
     async function handleFormSubmit(e) {
       e.preventDefault();
       const btn = document.getElementById('submit-btn');
-      btn.innerHTML = '<span>Opretter din widget...</span>';
+      btn.innerHTML = '<span>Behandler din henvendelse...</span>';
       btn.style.opacity = '0.7'; btn.disabled = true;
 
       const payload = {
+        type: document.getElementById('form_type').value,
         url: document.getElementById('url').value,
         email: document.getElementById('email').value,
-        title: document.getElementById('title').value || 'Digitale assistent',
-        brand_color: document.getElementById('brand_color').value
+        phone: document.getElementById('phone').value || '',
+        title: document.getElementById('title').value || '',
+        brand_color: document.getElementById('brand_color').value,
+        message: document.getElementById('message').value || ''
       };
 
       try {
         await fetch('https://n8n.unikiq.dk/webhook/opret-kunde', {
           method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload)
         });
-        alert('Tillykke! Din Chat Widget er oprettet. Tjek din e-mail for instruktioner og installeringskode.');
+        
+        if (payload.type === 'widget') {
+          alert('Tillykke! Din Chat Widget er oprettet. Tjek din e-mail for instruktioner og installeringskode.');
+        } else {
+          alert('Mange tak for din henvendelse! Vi har modtaget dine oplysninger og vender tilbage til dig hurtigst muligt.');
+        }
+        
         document.getElementById('onboarding-form').reset();
       } catch (err) {
-        alert('Tak! Din oprettelse er modtaget. Tjek din indbakke om få minutter.');
+        alert('Mange tak! Din oprettelse/henvendelse er modtaget. Vi tager kontakt til dig på e-mail hurtigst muligt.');
       } finally {
-        btn.innerHTML = '<span>Opret min Chat Widget</span><i class="fa-solid fa-arrow-right"></i>';
+        btn.innerHTML = '<span id="btn-text">Send henvendelse</span><i class="fa-solid fa-arrow-right"></i>';
         btn.style.opacity = '1'; btn.disabled = false;
+        switchFormMode(payload.type); // Genopfrisk knap-tekst i forhold til tilstand
       }
     }
 
