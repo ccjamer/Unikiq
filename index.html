@@ -458,24 +458,42 @@
         <p id="form-subtitle">Udfyld felterne nedenfor for at få genereret din unikke widget-kode på under 1 minut.</p>
       </div>
 
-      <form id="onboarding-form" onsubmit="handleFormSubmit(event)" class="unikiq-form">
+      <form id="onboarding-form" onsubmit="handleFormSubmit(event)" class="unikiq-form" novalidate>
         
         <input type="hidden" id="form_type" name="type" value="widget">
 
         <div class="unikiq-field">
           <label for="url" id="label-url">Din Hjemmeside URL *</label>
-          <input type="text" id="url" name="url" placeholder="dinvirksomhed.dk" required onblur="ensureHttp(this)" />
+          <input 
+            type="text" 
+            id="url" 
+            name="url" 
+            placeholder="dinvirksomhed.dk" 
+            required 
+            onblur="ensureHttp(this)" 
+          />
         </div>
 
         <div class="unikiq-field-row">
           <div class="unikiq-field">
             <label for="email">Din E-mailadresse *</label>
-            <input type="email" id="email" name="email" placeholder="din@email.dk" required />
+            <input 
+              type="email" 
+              id="email" 
+              name="email" 
+              placeholder="din@email.dk" 
+              required 
+            />
           </div>
 
           <div class="unikiq-field" id="field-phone" style="display:none;">
             <label for="phone">Telefonnummer <span class="unikiq-optional">(Valgfrit)</span></label>
-            <input type="tel" id="phone" name="phone" placeholder="+45 12 34 56 78" />
+            <input 
+              type="tel" 
+              id="phone" 
+              name="phone" 
+              placeholder="+45 12 34 56 78" 
+            />
           </div>
         </div>
 
@@ -923,23 +941,63 @@
     function closeLegalModal() { document.getElementById('legal-modal').style.display = 'none'; }
     function closeLegalModalOnOuterClick(e) { if (e.target.id === 'legal-modal') closeLegalModal(); }
 
-    // 3. ONBOARDING SUBMIT
+    // 3. ONBOARDING SUBMIT & VALIDERINGS-LOGIK
     function ensureHttp(input) {
       let val = input.value.trim();
-      if (val && !/^https?:\/\//i.test(val)) { input.value = 'https://' + val; }
+      if (val && !/^https?:\/\//i.test(val)) { 
+        input.value = 'https://' + val; 
+      }
     }
+
+    // Validerings-mønstre (Regex)
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    const domainRegex = /^https?:\/\/(www\.)?[a-zA-Z0-9-]+(\.[a-zA-Z]{2,})+/;
+    const phoneRegex = /^(\+)?[\d\s-]{8,15}$/;
 
     async function handleFormSubmit(e) {
       e.preventDefault();
+      
+      const urlInput = document.getElementById('url');
+      const emailInput = document.getElementById('email');
+      const phoneInput = document.getElementById('phone');
+      const formType = document.getElementById('form_type').value;
+
+      // 1. Valider Hjemmeside / Domæne
+      ensureHttp(urlInput);
+      if (!domainRegex.test(urlInput.value)) {
+        alert('Indtast venligst en gyldig hjemmeside-adresse (f.eks. dinvirksomhed.dk).');
+        urlInput.focus();
+        return;
+      }
+
+      // 2. Valider E-mailadresse
+      const emailValue = emailInput.value.trim();
+      if (!emailRegex.test(emailValue)) {
+        alert('Indtast venligst en gyldig e-mailadresse (f.eks. navn@domæne.dk).');
+        emailInput.focus();
+        return;
+      }
+
+      // 3. Valider Telefonnummer (hvis udfyldt i Pro/Custom tilstand)
+      if ((formType === 'avanceret_dma' || formType === 'skraeddersyet') && phoneInput.value.trim() !== '') {
+        if (!phoneRegex.test(phoneInput.value.trim())) {
+          alert('Indtast venligst et gyldigt telefonnummer (min. 8 cifre).');
+          phoneInput.focus();
+          return;
+        }
+      }
+
+      // Indsendelse til n8n
       const btn = document.getElementById('submit-btn');
       btn.innerHTML = '<span>Behandler din henvendelse...</span>';
-      btn.style.opacity = '0.7'; btn.disabled = true;
+      btn.style.opacity = '0.7'; 
+      btn.disabled = true;
 
       const payload = {
-        type: document.getElementById('form_type').value,
-        url: document.getElementById('url').value,
-        email: document.getElementById('email').value,
-        phone: document.getElementById('phone').value || '',
+        type: formType,
+        url: urlInput.value,
+        email: emailValue,
+        phone: phoneInput.value || '',
         title: document.getElementById('title').value || '',
         brand_color: document.getElementById('brand_color').value,
         message: document.getElementById('message').value || ''
@@ -947,7 +1005,9 @@
 
       try {
         await fetch('https://n8n.unikiq.dk/webhook/opret-kunde', {
-          method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload)
+          method: 'POST', 
+          headers: { 'Content-Type': 'application/json' }, 
+          body: JSON.stringify(payload)
         });
         
         if (payload.type === 'widget') {
@@ -961,8 +1021,9 @@
         alert('Mange tak! Din oprettelse/henvendelse er modtaget. Vi tager kontakt til dig på e-mail hurtigst muligt.');
       } finally {
         btn.innerHTML = '<span id="btn-text">Send henvendelse</span><i class="fa-solid fa-arrow-right"></i>';
-        btn.style.opacity = '1'; btn.disabled = false;
-        switchFormMode(payload.type); // Genopfrisk knap-tekst i forhold til tilstand
+        btn.style.opacity = '1'; 
+        btn.disabled = false;
+        switchFormMode(payload.type);
       }
     }
 
